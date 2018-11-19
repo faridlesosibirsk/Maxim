@@ -6,13 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls,
   ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs, IniFiles,
-  Generics.Collections, Math, UInterface, Vcl.Grids ;
+  Generics.Collections, Math, UInterface, Vcl.Grids;
 
 type
 
   TPowerFlywheelCreate = class(TInterfacedObject, TInterfaceMenuCreate)
   private
     fFileCreate: TInterfaceMenuCreate;
+    Offset:TPowerFlywheelCreate;
+
 
     LabelOriginal,
     Label1, Label2, Label3, Label4, Label5,
@@ -41,30 +43,30 @@ type
 
 var
   A,AL,VS,VC,VCB,MF,MF1,XC,DA,AK,T1,T2,W2,M:array[1..10] of real;
-  Z2: string; //тип двигател€
-  Z1,         //мощность двигател€
-  R,          //длина кривошипа
-  L,          //длина шатуна
-  BS,         //рассто€ние до центра т€жести шатуна
-  N1,         //обороты кривошипа (частота вращени€)
-  FR,         //сила резани€
-  AS1,        //рассто€ние до центра т€жести кривошипа
-  N,          //є точки начала силы резани€
-  M1,         //масса неуравновешенной части кривошипа
-  M2,         //масса шатуна
-  M3,         //масса пильной рамки
-  J2,         //момент инерции шатуна
-  DEL,        //коэффициент неравномерности хода
-  K,          //смещение хода пильной рамки, возможен 0
+  Z2: string; //engine type
+  Z1,         //engine power
+  R,          //crank length
+  L,          //connection rod length
+  BS,         //distance to the center of gravity of the connection rod
+  N1,         //crank turns (rotation frequency)
+  FR,         //cutting force
+  AS1,        //distance to crank center of gravity
+  N,          //cutting force start point number
+  M1,         // mass of crank unbalanced part
+  M2,         //connection rod weight
+  M3,         //weight of the saw frame
+  J2,         //connection rod moment of inertia
+  DEL,        //stroke unevenness coefficient
+  K,          //the offset of the saw frame (0 possible)
   VB, V, G10, G1, X0, X1, AR, PD, K5, ND, JD, U, MDP, WD, W1, J1, T10, T11, T22, P,
   DT1, JMAX, DE, K1, MMAX, B, MB, MB1, DW, DW1, TMAX :real;
-  i,iK:integer;  //переменна€ дл€ цикла
+  err,
+  i,iK:integer;
+
 
 implementation
 
-uses UMainForm,UCreateMainForm;
-
-
+uses UMainForm,UCreateMainForm, ULessOffset, ULargerOffset;
 
 constructor TPowerFlywheelCreate.create(AOwner: TForm);
 var
@@ -235,7 +237,6 @@ begin
        (Form1.Components[i] as TEdit).Free;
       end;
     end;
-
     StartButton.Free;
     BackButton.Free;
     StringGrid1.Free;
@@ -243,8 +244,6 @@ begin
 end;
 
 procedure TPowerFlywheelCreate.Start1ButtonClick(Sender: TObject);
-label
-  mark1,mark2;
 begin
   //
   R:=StrToFloat(Edit1.Text);
@@ -261,63 +260,22 @@ begin
   DEL:=StrToFloat(Edit12.Text);
   K:=StrToFloat(Edit13.Text);
   //
-  try
   AL[2]:=3.14/4;
   AL[1]:=0;
   for i:=2 to 9 do AL[i]:=AL[i-1]+AL[2];
   VB:=R*3.14*N1/30; VB:=FLOOR(VB*100)/100;
-  //перемещени€ и скорости
-  if K>0.01 then goto mark1;
-  for i:=1 to 9 do begin
-    XC[i]:=R*(1-COS(AL[i])-R*SIN(AL[i])*SIN(AL[i])/(2*L));
-    XC[i]:=XC[i]*100;
-    XC[i]:=INT(XC[i]);
-    XC[i]:=XC[i]/100;
-    VC[i]:=VB*(SIN(AL[i])-SIN(2*AL[i])*R/(2*L));
-    VC[i]:=FLOOR(VC[i]*100)/100;
-    VCB[i]:=VB*COS(AL[i])/(1-SIN(AL[i])*SIN(AL[i])*Power(R,2)/(2*Power(L,2)));
-    V:=VCB[i]*100;
-    V:=FLOOR(V);
-    VCB[i]:=V/100;
-    if i>=N then begin
-      MF[i]:=FR*30*VC[i]/(3.14*N1);
-      MF[i]:=ABS(FLOOR(MF[i]*100)/100);
-    end;
-  end;
-  goto mark2;
-mark1:
-  G10:=K/(L-R);
-  G1:=K/(L+R);
-  X0:=2*ARCTAN((1-(Power((1-G10*G10),0.5)))/G10);
-  X1:=2*ARCTAN((1-(Power((1-G1*G1),0.5)))/G1);
-  AL[1]:=-X0;
-  for i:=2 to 9 do AL[i]:=AL[i-1]-3.14/4;
-  AL[5]:=-3.14-X1;
-  AL[9]:=-X0;
-  for i:=1 to 9 do begin
-    XC[i]:=Power(Power(L,2)- Power((K-R*SIN(AL[i])),2),0.5)-R*COS(AL[i])-(L-R)*G10;
-    XC[i]:=FLOOR(XC[i]*100)/100;
-    VC[i]:=VB*(SIN(AL[i])+(K-R*SIN(AL[i]))*COS(AL[i])/(Power((Power(L,2)-Power((K-R*SIN(AL[i])),2)),0.5)));
-    VC[i]:=FLOOR(VC[i]*100)/100;
-    VCB[i]:=VB*COS(AL[i])/(Power(1-Power((K-R*SIN(AL[i])),2)/Power(L,2),0.5));
-    VCB[i]:=FLOOR(VCB[i]*100)/100;
-    if i>=N then begin
-      MF[i]:=30*FR*VC[i]/(3.14*N1);
-      MF[i]:=FLOOR(MF[i]*100)/100;
-    end;
-  end;
-  //
-  //работа сил резани€
-mark2:
+  //movements and speeds
+  if K>0.01 then Offset:=TLargerOffset.create(Form1)
+    else Offset:=TLessOffset.create(Form1);
+  Offset.Free;
+  if err=1 then exit;
+
+  //cutting force work
   AR:=2*3.14*(MF[6]+MF[7]+MF[8])/4;
   AR:=FLOOR(AR*100)/100;
   if N=5 then AR:=0.5*AR;
   PD:=ABS(AR*N1/(0.8*60));
   K5:=K;
-  except
-    Application.MessageBox('ѕопытка делени€ на 0!','ќшибка');
-    exit;
-  end;
   LabelOriginal.Visible:=False;
   Label7.Visible:=False;
   Label8.Visible:=False;
@@ -467,7 +425,7 @@ begin
     MF1[i]:=MDP-ABS(MF[i]);
     MF1[i]:=FLOOR(MF1[i]*100)/100;
   end;
-  //работа внешних сил a
+  //work of external forces
   DA[1]:=0;
   AK[i]:=0;
   for i:=1 to 8 do begin
@@ -476,7 +434,7 @@ begin
     AK[i+1]:=AK[i]+DA[i];
     AK[i]:=FLOOR(AK[i]*100)/100;
   end;
-  //расчет маховика
+  //flywheel calculation
   WD:=3.14*ND/30;
   W1:=3.14*N1/30;
   for i:=1 to 9 do begin
@@ -493,9 +451,10 @@ begin
     T2[i]:=FLOOR(T2[i]/10)/100;
     T1[i]:=T10+AK[i]-T2[i];
   end;
-  //выбор наименьшего и наибольшего значений т1
+
+  //max t1 and min t1
   for i:=1 to 9 do A[i]:=T1[i];
-  //сортировка массива
+  //max
   P:=A[1];
   iK:=1;
   for i:=2 to 9 do begin
@@ -507,7 +466,7 @@ begin
   T11:=P;
   Label1.Caption:='Ќомер положени€ и t1max='+IntToStr(iK)+': '+FloatToStr(T11);
   for i:=1 to 9 do A[i]:=T1[i];
-  //сортировка массива
+  //min
   P:=A[1];
   iK:=1;
   for i:=2 to 9 do begin
@@ -518,6 +477,7 @@ begin
   end;
   T22:=P;
   Label2.Caption:='Ќомер положени€ и t1min='+IntToStr(iK)+': '+FloatToStr(T22);
+  //
   DT1:=T11-T22;
   DT1:=FLOOR(DT1*100)/100;
   JMAX:=1000*DT1/(DEL*Power(W1,2))-JD*Power(U,2)-J1;
@@ -583,7 +543,7 @@ begin
   B:=4*MMAX/(3.14*7800*Power(DE,2)*(1-Power(K1,2)));
   B:=FLOOR(B*1000)/1000;
   for i:=1 to 8 do A[i]:=ABS(T1[i+1]-T1[i])*4/3.14;
-  //сортировка массива
+  //max A[i]
   P:=A[1];
   iK:=1;
   for i:=2 to 9 do begin
@@ -760,8 +720,8 @@ begin
   fFileCreate := TNilCreate.create(Form1);
 end;
 
-procedure TPowerFlywheelCreate.Edit1Change(Sender: TObject); //проверка на наличие в пол€х edit содержимого
-begin                                                   //если хоть одно поле пустует, нельз€ продолжать
+procedure TPowerFlywheelCreate.Edit1Change(Sender: TObject); //if Edit='', don't continue
+begin
   if (Edit1.Text='') or (Edit2.Text='') or (Edit3.Text='')
     or (Edit4.Text='') or (Edit5.Text='') or (Edit6.Text='')
       or (Edit7.Text='') or (Edit8.Text='') or (Edit9.Text='')
@@ -771,12 +731,13 @@ end;
 
 procedure TPowerFlywheelCreate.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
-  if not (Key in ['0'..'9',#8,',']) then Key:=#0; //запрет на ввод букв
+  if not (Key in ['0'..'9',#8,',']) then Key:=#0; //only numbers
 end;
 
 procedure TPowerFlywheelCreate.Edit2KeyPress(Sender: TObject; var Key: Char);
 begin
-  if not ((Key in ['0'..'9',#8,',','a'..'z','A'..'Z']) or (ord(Key) >= 1040) and (ord(Key) <= 1103)) then Key:=#0; //запрет на ввод букв
+  if not ((Key in ['0'..'9',#8,',','a'..'z','A'..'Z'])
+    or (ord(Key) >= 1040) and (ord(Key) <= 1103)) then Key:=#0; //only numbers and letters
 end;
 
 end.
