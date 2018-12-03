@@ -6,7 +6,7 @@ uses Forms, Math, UPowerFlywheel, UMainForm, UCreateMainForm;
 
 type
 
-  TLessOffset = class (TPowerFLywheelCreate)
+  TLessOffset = class (TPowerFlywheel)
   public
     constructor create(AOwner: TForm);
   end;

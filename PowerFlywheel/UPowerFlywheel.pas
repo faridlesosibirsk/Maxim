@@ -10,13 +10,13 @@ uses
 
 type
 
-  TPowerFlywheelCreate = class(TInterfacedObject, TInterfaceMenuCreate)
+  TPowerFlywheel = class(TInterfacedObject, TInterfaceMenuCreate)
   private
     fFileCreate: TInterfaceMenuCreate;
-    Offset:TPowerFlywheelCreate;
+    Offset:TPowerFlywheel;
 
 
-    LabelOriginal,
+    {LabelOriginal,}
     Label1, Label2, Label3, Label4, Label5,
     Label6, Label7, Label8, Label9, Label10,
     Label11, Label12, Label13:TLabel;
@@ -66,17 +66,19 @@ var
 
 implementation
 
-uses UMainForm,UCreateMainForm, ULessOffset, ULargerOffset;
+uses UMainForm,UCreateMainForm, ULessOffset, ULargerOffset,
+     UObjectsPowerFlywhell;
 
-constructor TPowerFlywheelCreate.create(AOwner: TForm);
+constructor TPowerFlywheel.create(AOwner: TForm);
 var
   TopLabel, TopEdit:integer;
 begin
 
 
-  LabelOriginal:=TLabel.create(AOwner);
-  LabelOriginal.Left:=8;
-  LabelOriginal.Caption:='¬ведите исходные данные';
+  {LabelOriginal:=TLabel.create(AOwner); }
+  Offset:=TObjectsPowerFlywhell.create(Form1);
+
+  
 
   Label1:=TLabel.create(AOwner);
   Label1.Left:=187;
@@ -170,8 +172,8 @@ begin
     end;
   end;
 
-  LabelOriginal.Font.Size:=14;
-  LabelOriginal.Top:=8;
+  {LabelOriginal.Font.Size:=14;
+  LabelOriginal.Top:=8;}
 
   StartButton:=TButton.create(AOwner);
   StartButton.Left:=325;
@@ -226,7 +228,7 @@ begin
   StringGrid2.Visible:=False;
 end;
 
-procedure TPowerFlywheelCreate.destroy;
+procedure TPowerFlywheel.destroy;
 begin
     for i:=Form1.ComponentCount-1 downto 0 do begin
       if (Form1.Components[i] is TLabel) then begin
@@ -243,7 +245,7 @@ begin
     StringGrid2.Free;
 end;
 
-procedure TPowerFlywheelCreate.Start1ButtonClick(Sender: TObject);
+procedure TPowerFlywheel.Start1ButtonClick(Sender: TObject);
 begin
   //
   R:=StrToFloat(Edit1.Text);
@@ -276,7 +278,7 @@ begin
   if N=5 then AR:=0.5*AR;
   PD:=ABS(AR*N1/(0.8*60));
   K5:=K;
-  LabelOriginal.Visible:=False;
+  {LabelOriginal.Visible:=False;}
   Label7.Visible:=False;
   Label8.Visible:=False;
   Label9.Visible:=False;
@@ -352,7 +354,7 @@ begin
   Edit4.OnKeyPress:=Edit2KeyPress;
 end;
 
-procedure TPowerFlywheelCreate.Start2ButtonClick(Sender: TObject);
+procedure TPowerFlywheel.Start2ButtonClick(Sender: TObject);
 begin
   ND:=StrToFloat(Edit1.Text);
   JD:=StrToFloat(Edit2.Text);
@@ -419,7 +421,7 @@ begin
   Edit4.OnKeyPress:=Edit1KeyPress;
 end;
 
-procedure TPowerFlywheelCreate.Start3ButtonClick(Sender: TObject);
+procedure TPowerFlywheel.Start3ButtonClick(Sender: TObject);
 begin
   for i:=1 to 9 do begin
     MF1[i]:=MDP-ABS(MF[i]);
@@ -534,7 +536,7 @@ begin
   StartButton.OnClick:=Start4ButtonClick;
 end;
 
-procedure TPowerFlywheelCreate.Start4ButtonClick(Sender: TObject);
+procedure TPowerFlywheel.Start4ButtonClick(Sender: TObject);
 begin
   DE:=StrToFloat(Edit1.Text);
   K1:=StrToFloat(Edit2.Text);
@@ -619,7 +621,7 @@ begin
   StartButton.OnClick:=Start5ButtonClick;
 end;
 
-procedure TPowerFlywheelCreate.Start5ButtonClick(Sender: TObject);
+procedure TPowerFlywheel.Start5ButtonClick(Sender: TObject);
 begin
   Form1.Height:=513;
   Form1.Width:=900;
@@ -714,13 +716,13 @@ begin
   BackButton.Top:=443;
 end;
 
-procedure TPowerFlywheelCreate.BackButtonClick(Sender: TObject);
+procedure TPowerFlywheel.BackButtonClick(Sender: TObject);
 begin
   destroy;
   fFileCreate := TNilCreate.create(Form1);
 end;
 
-procedure TPowerFlywheelCreate.Edit1Change(Sender: TObject); //if Edit='', don't continue
+procedure TPowerFlywheel.Edit1Change(Sender: TObject); //if Edit='', don't continue
 begin
   if (Edit1.Text='') or (Edit2.Text='') or (Edit3.Text='')
     or (Edit4.Text='') or (Edit5.Text='') or (Edit6.Text='')
@@ -729,12 +731,12 @@ begin
           or (Edit13.Text='') then StartButton.Enabled:=False else StartButton.Enabled:=True;
 end;
 
-procedure TPowerFlywheelCreate.Edit1KeyPress(Sender: TObject; var Key: Char);
+procedure TPowerFlywheel.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
   if not (Key in ['0'..'9',#8,',']) then Key:=#0; //only numbers
 end;
 
-procedure TPowerFlywheelCreate.Edit2KeyPress(Sender: TObject; var Key: Char);
+procedure TPowerFlywheel.Edit2KeyPress(Sender: TObject; var Key: Char);
 begin
   if not ((Key in ['0'..'9',#8,',','a'..'z','A'..'Z'])
     or (ord(Key) >= 1040) and (ord(Key) <= 1103)) then Key:=#0; //only numbers and letters

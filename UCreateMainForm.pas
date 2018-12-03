@@ -62,7 +62,7 @@ procedure TNilCreate.PowerFlywheelButtonClick(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  fFileCreate:=TPowerFlywheelCreate.create(Form1);
+  fFileCreate:=TPowerFlywheel.create(Form1);
   Ini := TIniFile.Create(ChangeFileExt(Application.ExeName, '.INI'));
   try
     Form1.Height:=Ini.ReadInteger('FormPowerFlywheel', 'Height', 100);

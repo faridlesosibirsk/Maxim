@@ -5,7 +5,7 @@ interface
 uses Forms, Math, UPowerFlywheel, UMainForm;
 
 type
-  TLargerOffset = class(TPowerFlywheelCreate)
+  TLargerOffset = class(TPowerFlywheel)
   public
     constructor create(AOwner: TForm);
   end;

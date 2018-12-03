@@ -7,7 +7,8 @@ uses
   UCreateMainForm in 'UCreateMainForm.pas',
   UPowerFlywheel in 'PowerFlywheel\UPowerFlywheel.pas',
   ULessOffset in 'PowerFlywheel\ULessOffset.pas',
-  ULargerOffset in 'PowerFlywheel\ULargerOffset.pas';
+  ULargerOffset in 'PowerFlywheel\ULargerOffset.pas',
+  UObjectsPowerFlywhell in 'PowerFlywheel\UObjectsPowerFlywhell.pas';
 
 {$R *.res}
 
