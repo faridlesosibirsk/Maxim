@@ -16,7 +16,7 @@ type
     Offset:TPowerFlywheel;
 
 
-    {LabelOriginal,}
+    LabelOriginal,
     Label1, Label2, Label3, Label4, Label5,
     Label6, Label7, Label8, Label9, Label10,
     Label11, Label12, Label13:TLabel;
@@ -39,6 +39,10 @@ type
     procedure Edit1Change(Sender: TObject);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure Edit2KeyPress(Sender: TObject; var Key: Char);
+    procedure LabelsCreate(AOwner: TForm; Label_: TLabel; FontSize,Top,Left: integer;
+                Caption: string);
+    procedure LabelsParametrs(Label_: TLabel; FontSize,Top,Left: integer; Caption: string);
+    procedure EditCreate(AOwner: TForm; Edit_: TEdit; Top: integer);
   end;
 
 var
@@ -66,114 +70,41 @@ var
 
 implementation
 
-uses UMainForm,UCreateMainForm, ULessOffset, ULargerOffset,
-     UObjectsPowerFlywhell;
+uses UMainForm,UCreateMainForm, ULessOffset, ULargerOffset;
 
 constructor TPowerFlywheel.create(AOwner: TForm);
 var
   TopLabel, TopEdit:integer;
 begin
 
+  LabelsCreate(AOwner, LabelOriginal, 14, 8, 8, 'Введите исходные данные');
+  LabelsCreate(AOwner, Label1, 12, 46, 187, 'Длина кривошипа (м)');
+  LabelsCreate(AOwner, Label2, 12, 79, 215, 'Длина шатуна (м)');
+  LabelsCreate(AOwner, Label3, 12, 112, 52, 'Расстояние до центра тяжести шатуна (м)');
+  LabelsCreate(AOwner, Label4, 12, 145, 129, 'Обороты кривошипа (мин^-1)');
+  LabelsCreate(AOwner, Label5, 12, 178, 211, 'Cила резания (кН)');
+  LabelsCreate(AOwner, Label6, 12, 211, 24, 'Расстояние до центра тяжести кривошипа (м)');
+  LabelsCreate(AOwner, Label7, 12, 244, 132, '№ точки начала силы резания');
+  LabelsCreate(AOwner, Label8, 12, 277, 9, 'Масса неуравновешенной части кривошипа (кг)');
+  LabelsCreate(AOwner, Label9, 12, 310, 214, 'Масса шатуна (кг)');
+  LabelsCreate(AOwner, Label10, 12, 343, 158, 'Масса пильной рамки (кг)');
+  LabelsCreate(AOwner, Label11, 12, 376, 103, 'Момент инерции шатуна (кг*м^2)');
+  LabelsCreate(AOwner, Label12, 12, 409, 84, 'Коэффициент неравномерности хода');
+  LabelsCreate(AOwner, Label13, 12, 442, 30, 'Смещение хода пильной рамки (возможен 0)');
 
-  {LabelOriginal:=TLabel.create(AOwner); }
-  Offset:=TObjectsPowerFlywhell.create(Form1);
-
-  
-
-  Label1:=TLabel.create(AOwner);
-  Label1.Left:=187;
-  Label1.Caption:='Длина кривошипа (м)';
-
-  Label2:=TLabel.create(AOwner);
-  Label2.Left:=215;
-  Label2.Caption:='Длина шатуна (м)';
-
-  Label3:=TLabel.create(AOwner);
-  Label3.Left:=52;
-  Label3.Caption:='Расстояние до центра тяжести шатуна (м)';
-
-  Label4:=TLabel.create(AOwner);
-  Label4.Left:=129;
-  Label4.Caption:='Обороты кривошипа (мин^-1)';
-
-  Label5:=TLabel.create(AOwner);
-  Label5.Left:=211;
-  Label5.Caption:='Cила резания (кН)';
-
-  Label6:=TLabel.create(AOwner);
-  Label6.Left:=24;
-  Label6.Caption:='Расстояние до центра тяжести кривошипа (м)';
-
-  Label7:=TLabel.create(AOwner);
-  Label7.Left:=132;
-  Label7.Caption:='№ точки начала силы резания';
-
-  Label8:=TLabel.create(AOwner);
-  Label8.Left:=9;
-  Label8.Caption:='Масса неуравновешенной части кривошипа (кг)';
-
-  Label9:=TLabel.create(AOwner);
-  Label9.Left:=214;
-  Label9.Caption:='Масса шатуна (кг)';
-
-  Label10:=TLabel.create(AOwner);
-  Label10.Left:=158;
-  Label10.Caption:='Масса пильной рамки (кг)';
-
-  Label11:=TLabel.create(AOwner);
-  Label11.Left:=103;
-  Label11.Caption:='Момент инерции шатуна (кг*м^2)';
-
-  Label12:=TLabel.create(AOwner);
-  Label12.Left:=84;
-  Label12.Caption:='Коэффициент неравномерности хода';
-
-  Label13:=TLabel.create(AOwner);
-  Label13.Left:=30;
-  Label13.Caption:='Смещение хода пильной рамки (возможен 0)';
-
-  Edit1:=TEdit.create(AOwner);
-  Edit2:=TEdit.create(AOwner);
-  Edit3:=TEdit.create(AOwner);
-  Edit4:=TEdit.create(AOwner);
-  Edit5:=TEdit.create(AOwner);
-  Edit6:=TEdit.create(AOwner);
-  Edit7:=TEdit.create(AOwner);
-  Edit8:=TEdit.create(AOwner);
-  Edit9:=TEdit.create(AOwner);
-  Edit10:=TEdit.create(AOwner);
-  Edit11:=TEdit.create(AOwner);
-  Edit12:=TEdit.create(AOwner);
-  Edit13:=TEdit.create(AOwner);
-
-  TopLabel:=13;
-  TopEdit:=43;
-  for i:=0 to Form1.ComponentCount-1 do begin
-    if (Form1.Components[i] is TLabel) then begin
-      (Form1.Components[i] as TLabel).Font.Name:='Times New Roman';
-      (Form1.Components[i] as TLabel).Font.Size:=12;
-      (Form1.Components[i] as TLabel).Parent:=AOwner;
-      (Form1.Components[i] as TLabel).Top:=TopLabel;
-      TopLabel:=TopLabel+33;
-    end;
-
-    if (Form1.Components[i] is TEdit) then begin
-      (Form1.Components[i] as TEdit).Left:=341;
-      (Form1.Components[i] as TEdit).Width:=92;
-      (Form1.Components[i] as TEdit).Text:='';
-      (Form1.Components[i] as TEdit).Font.Name:='Times New Roman';
-      (Form1.Components[i] as TEdit).Font.Size:=12;
-      (Form1.Components[i] as TEdit).Parent:=AOwner;
-      (Form1.Components[i] as TEdit).OnChange:=Edit1Change;
-      (Form1.Components[i] as TEdit).OnKeyPress:=Edit1KeyPress;
-      (Form1.Components[i] as TEdit).MaxLength:=8;
-      (Form1.Components[i] as TEdit).Top:=TopEdit;
-      TopEdit:=TopEdit+33;
-    end;
-  end;
-
-  {LabelOriginal.Font.Size:=14;
-  LabelOriginal.Top:=8;}
+  EditCreate(AOwner, Edit1, 43);
+  EditCreate(AOwner, Edit2, 76);
+  EditCreate(AOwner, Edit3, 109);
+  EditCreate(AOwner, Edit4, 142);
+  EditCreate(AOwner, Edit5, 175);
+  EditCreate(AOwner, Edit6, 208);
+  EditCreate(AOwner, Edit7, 241);
+  EditCreate(AOwner, Edit8, 274);
+  EditCreate(AOwner, Edit9, 307);
+  EditCreate(AOwner, Edit10, 340);
+  EditCreate(AOwner, Edit11, 373);
+  EditCreate(AOwner, Edit12, 406);
+  EditCreate(AOwner, Edit13, 439);
 
   StartButton:=TButton.create(AOwner);
   StartButton.Left:=325;
@@ -278,7 +209,7 @@ begin
   if N=5 then AR:=0.5*AR;
   PD:=ABS(AR*N1/(0.8*60));
   K5:=K;
-  {LabelOriginal.Visible:=False;}
+  LabelOriginal.Visible:=False;
   Label7.Visible:=False;
   Label8.Visible:=False;
   Label9.Visible:=False;
@@ -740,6 +671,43 @@ procedure TPowerFlywheel.Edit2KeyPress(Sender: TObject; var Key: Char);
 begin
   if not ((Key in ['0'..'9',#8,',','a'..'z','A'..'Z'])
     or (ord(Key) >= 1040) and (ord(Key) <= 1103)) then Key:=#0; //only numbers and letters
+end;
+
+procedure TPowerFlywheel.EditCreate(AOwner: TForm; Edit_: TEdit; Top: integer);
+begin
+  Edit_:=TEdit.Create(AOwner);
+  Edit_.Width:=92;
+  Edit_.Font.Size:=12;
+  Edit_.Top:=Top;
+  Edit_.Left:=341;
+  Edit_.Font.Name:='Times New Roman';
+  Edit_.Text:='';
+  Edit_.Parent:=AOwner;
+  Edit_.MaxLength:=8;
+  Edit_.OnChange:=Edit1Change;
+  Edit_.OnKeyPress:=Edit1KeyPress;
+end;
+
+procedure TPowerFlywheel.LabelsCreate(AOwner: TForm; Label_: TLabel; FontSize,
+  Top, Left: integer; Caption: string);
+begin
+  Label_:=TLabel.create(AOwner);
+  Label_.Font.Size:=FontSize;
+  Label_.Top:=Top;
+  Label_.Left:=Left;
+  Label_.Font.Name:='Times New Roman';
+  Label_.Caption:=Caption;
+  Label_.Parent:=AOwner;
+end;
+
+procedure TPowerFlywheel.LabelsParametrs(label_: TLabel; FontSize, Top, Left: integer;
+  Caption: string);
+begin
+  Label_.Font.Size:=FontSize;
+  Label_.Top:=Top;
+  Label_.Left:=Left;
+  Label_.Font.Name:='Times New Roman';
+  Label_.Caption:=Caption;
 end;
 
 end.

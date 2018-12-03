@@ -33,7 +33,6 @@ var
 begin
   Ini := TIniFile.Create(ChangeFileExt(Application.ExeName, '.INI'));
   PowerFlywheelButton:=TButton.create(AOwner);
-
   try
     Form1.Height := Ini.ReadInteger('Form', 'Height', 100);
     Form1.Width := Ini.ReadInteger('Form', 'Width', 100);
