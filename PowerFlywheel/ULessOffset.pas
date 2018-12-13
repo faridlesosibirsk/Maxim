@@ -35,6 +35,7 @@ begin
       MF[i]:=ABS(FLOOR(MF[i]*100)/100);
     end;
   end;
+  err:=0;
   except
     Application.MessageBox('Попытка деления на 0!','Ошибка');
     err:=1;

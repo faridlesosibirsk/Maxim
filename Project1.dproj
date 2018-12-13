@@ -91,6 +91,9 @@
 			<DCCReference Include="PowerFlywheel\UPowerFlywheel.pas"/>
 			<DCCReference Include="PowerFlywheel\ULessOffset.pas"/>
 			<DCCReference Include="PowerFlywheel\ULargerOffset.pas"/>
+			<DCCReference Include="FrameSaws\UFrameSaws.pas"/>
+			<DCCReference Include="PowerFlywheel\UCreateObjects.pas"/>
+			<DCCReference Include="PowerFlywheel\UParametrsObjects.pas"/>
 			<None Include="ModelSupport_Project1\default.txaPackage"/>
 			<None Include="ModelSupport_Project1\default.txvpck"/>
 			<None Include="ModelSupport_Project1\Project1\default.txvpck"/>
