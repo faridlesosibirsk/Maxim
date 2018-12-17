@@ -13,11 +13,14 @@ type
 
   TPowerFlywheel = class(TInterfacedObject, TInterfaceMenuCreate)
   private
+    /// <link>aggregation</link>
     fFileCreate: TInterfaceMenuCreate;
-    Offset:TPowerFlywheel;
-    ObjCreate:TCreateObjects;
-    ObjParametrs:TParametrsObjects;
-
+    /// <link>aggregation</link>
+    Offset: TPowerFlywheel;
+    /// <link>aggregation</link>
+    ObjCreate: TCreateObjects;
+    /// <link>aggregation</link>
+    ObjParametrs: TParametrsObjects;
     LabelOriginal,
     Label1, Label2, Label3, Label4, Label5,
     Label6, Label7, Label8, Label9, Label10,
@@ -67,7 +70,7 @@ var
 
 implementation
 
-uses UMainForm,UCreateMainForm, ULessOffset, ULargerOffset;
+uses UMainForm, UCreateMainForm, ULessOffset, ULargerOffset;
 
 
 constructor TPowerFlywheel.create(AOwner: TForm);
@@ -204,8 +207,6 @@ begin
   ObjParametrs.EditParametrs(Edit4,193,260,92,14);
   Edit4.OnKeyPress:=Edit2KeyPress;
 
-
-
   ObjParametrs.ButtonParametrs(StartButton,230,330);
   StartButton.OnClick:=Start2ButtonClick;
   ObjParametrs.ButtonParametrs(BackButton,230,8);
@@ -217,6 +218,7 @@ begin
   JD:=StrToFloat(Edit2.Text);
   Z1:=StrToFloat(Edit3.Text);
   Z2:=Edit4.Text;
+
   Label7.Visible:=True;
   Label8.Visible:=True;
   Label9.Visible:=True;
@@ -228,84 +230,52 @@ begin
   Edit3.Visible:=False;
   Edit4.Visible:=False;
 
+  U:=FLOOR(ND/N1*10)/10;
+  MDP:=PD*0.8*30/(3.14*N1);
+
   Form1.Height:=550;
   Form1.Width:=770;
 
-  Label1.Left:=300;
-  Label1.Top:=16;
-  Label1.Caption:='Результаты расчетов';
-  Label1.Font.Size:=14;
+  ObjParametrs.LabelsParametrs(Label1,14,16,300,'Результаты расчетов');
+  ObjParametrs.LabelsParametrs(Label2,12,68,340,'Положения кривошипа');
+  ObjParametrs.LabelsParametrs(Label3,12,248,340,'Положения кривошипа');
+  ObjParametrs.LabelsParametrs(Label4,12,168,12,'где: VCB - Скорость относительного движения точки C вследствие вращения шатуна относительно точки B.');
+  ObjParametrs.LabelsParametrs(Label5,12,188,49,'VC - Скорость точки C.');
+  ObjParametrs.LabelsParametrs(Label6,12,320,12,'где MF - Приведенные моменты сил резания.');
+  ObjParametrs.LabelsParametrs(Label7,12,364,184,'Скорость:');
+  Label7.Caption:=Label7.Caption+' '+FloatToStr(VB)+' м/с';
+  ObjParametrs.LabelsParametrs(Label8,12,384,154,'Сила резания:');
+  Label8.Caption:=Label8.Caption+' '+FloatToStr(FR)+' кН';
+  ObjParametrs.LabelsParametrs(Label9,12,404,113,'Обороты двигателя:');
+  Label9.Caption:=Label9.Caption+' '+FloatToStr(ND)+' об/мин';
+  ObjParametrs.LabelsParametrs(Label10,12,424,62,'Мощность и тип двигателя:');
+  Label10.Caption:=Label10.Caption+' '+FloatToStr(Z1)+' кВт/'+Z2;
+  ObjParametrs.LabelsParametrs(Label11,12,444,8,'Передаточное число ременной передачи:');
+  Label11.Caption:=Label11.Caption+' '+FloatToStr(U);
 
-  Label2.Left:=340;
-  Label2.Top:=68;
-  Label2.Caption:='Положения кривошипа';
-
-  Label3.Left:=340;
-  Label3.Top:=248;
-  Label3.Caption:='Положения кривошипа';
-
-  Label4.Left:=12;
-  Label4.Top:=168;
-  Label4.Caption:='где: VCB - Скорость относительного движения точки C вследствие вращения шатуна относительно точки B.';
-
-  Label5.Left:=49;
-  Label5.Top:=188;
-  Label5.Caption:='VC - Скорость точки C.';
-
-  Label6.Left:=12;
-  Label6.Top:=320;
-  Label6.Caption:='где MF - Приведенные моменты сил резания.';
-
-  Label7.Left:=184;
-  Label7.Top:=364;
-  Label7.Caption:='Скорость:';
-
-  Label8.Left:=154;
-  Label8.Top:=384;
-  Label8.Caption:='Сила резания:';
-
-  Label9.Left:=113;
-  Label9.Top:=404;
-  Label9.Caption:='Обороты двигателя:';
-
-  Label10.Left:=62;
-  Label10.Top:=424;
-  Label10.Caption:='Мощность и тип двигателя:';
-
-  Label11.Left:=8;
-  Label11.Top:=444;
-  Label11.Caption:='Передаточное число ременной передачи:';
-
-  StartButton.Left:=640;
-  StartButton.Top:=477;
+  ObjParametrs.ButtonParametrs(StartButton,477,640);
   StartButton.Caption:='Вперед';
-  BackButton.Left:=8;
-  BackButton.Top:=477;
-
   StartButton.OnClick:=Start3ButtonClick;
+  ObjParametrs.ButtonParametrs(BackButton,477,8);
+
   StringGrid1.Cells[0,0]:='скорости точек';
   StringGrid1.Cells[0,1]:='       VCB (м/с)=';
   StringGrid1.Cells[0,2]:='         VC (м/с)=';
-  StringGrid2.Cells[0,1]:='     MF (кН*м)=';
   StringGrid1.ColWidths[0]:=135;
-  StringGrid2.ColWidths[0]:=130;
   StringGrid1.Visible:=True;
+
+  StringGrid2.ColWidths[0]:=130;
+  StringGrid2.Cells[0,1]:='     MF (кН*м)=';
   StringGrid2.Visible:=True;
+
   for i:=1 to 9 do begin
     StringGrid1.Cells[i,0]:=IntToStr(i);
-    StringGrid2.Cells[i,0]:=IntToStr(i);
-  end;
-  for i:=1 to 9 do StringGrid1.Cells[i,1]:=FloatToStr(VCB[i]);
-  for i:=1 to 9 do StringGrid1.Cells[i,2]:=FloatToStr(VC[i]);
-  for i:=1 to 9 do StringGrid2.Cells[i,1]:=FloatToStr(MF[i]);
+    StringGrid1.Cells[i,1]:=FloatToStr(VCB[i]);
+    StringGrid1.Cells[i,2]:=FloatToStr(VC[i]);
 
-  Label7.Caption:=Label7.Caption+' '+FloatToStr(VB)+' м/с';
-  Label8.Caption:=Label8.Caption+' '+FloatToStr(FR)+' кН';
-  U:=FLOOR(ND/N1*10)/10;
-  Label9.Caption:=Label9.Caption+' '+FloatToStr(ND)+' об/мин';
-  Label10.Caption:=Label10.Caption+' '+FloatToStr(Z1)+' кВт/'+Z2;
-  Label11.Caption:=Label11.Caption+' '+FloatToStr(U);
-  MDP:=PD*0.8*30/(3.14*N1);
+    StringGrid2.Cells[i,0]:=IntToStr(i);
+    StringGrid2.Cells[i,1]:=FloatToStr(MF[i]);
+  end;
   Edit4.OnKeyPress:=Edit1KeyPress;
 end;
 
@@ -343,29 +313,26 @@ begin
   end;
 
   //max t1 and min t1
-  for i:=1 to 9 do A[i]:=T1[i];
   //max
-  P:=A[1];
+  T11:=T1[1];
   iK:=1;
   for i:=2 to 9 do begin
-    if P<A[i] then begin
+    if T11<T1[i] then begin
       iK:=i;
-      P:=A[i];
+      T11:=T1[i];
     end;
   end;
-  T11:=P;
   Label1.Caption:='Максимальная кинетическая энергия T1max='+FloatToStr(T11)+'кДж находится вположении кривошипа №'+IntToStr(iK);
-  for i:=1 to 9 do A[i]:=T1[i];
+
   //min
-  P:=A[1];
+  T22:=T1[1];
   iK:=1;
   for i:=2 to 9 do begin
-    if P>A[i] then begin
+    if T22>T1[i] then begin
       iK:=i;
-      P:=A[i];
+      T22:=T1[i];
     end;
   end;
-  T22:=P;
   Label2.Caption:='Минимальная кинетическая энергия T1min='+FloatToStr(T22)+'кДж находится вположении кривошипа №'+IntToStr(iK);
   //
   DT1:=T11-T22;
@@ -385,47 +352,19 @@ begin
   Edit2.Visible:=True;
 
   Form1.Height:=330;
-  Form1.Width:=680;
+  Form1.Width:=695;
 
-  Label1.Left:=30;
-  Label1.Top:=16;
-  Label1.Font.Size:=12;
+  ObjParametrs.LabelsParametrs(Label1,12,16,30,Label1.Caption);
+  ObjParametrs.LabelsParametrs(Label2,12,41,30,Label2.Caption);
+  ObjParametrs.LabelsParametrs(Label3,12,66,30,'Наибольший размах кинетической энергии T1='+FloatToStr(DT1)+' кДж');
+  ObjParametrs.LabelsParametrs(Label4,14,151,7,'Для определения геометрических размеров маховика введите следующие данные:');
+  ObjParametrs.LabelsParametrs(Label5,12,190,17,'Значение наружного диаметра (м):');
+  ObjParametrs.LabelsParametrs(Label6,12,223,24,'Коэффициент толщины маховика:');
 
-  Label2.Left:=30;
-  Label2.Top:=41;
-  Label2.Font.Size:=12;
+  ObjParametrs.EditParametrs(Edit1,187,257,121,Edit1.MaxLength);
+  ObjParametrs.EditParametrs(Edit2,220,257,121,Edit2.MaxLength);
 
-
-  Label3.Left:=30;
-  Label3.Top:=66;
-  Label3.Caption:='Наибольший размах кинетической энергии T1='+FloatToStr(DT1)+' кДж';
-
-  Label4.Left:=7;
-  Label4.Top:=151;
-  Label4.Caption:='Для определения геометрических размеров маховика введите следующие данные:';
-  Label4.Font.Size:=14;
-
-  Label5.Left:=17;
-  Label5.Top:=190;
-  Label5.Caption:='Значение наружного диаметра (м):';
-
-  Label6.Left:=31;
-  Label6.Top:=223;
-  Label6.Caption:='Коэффицент толщины маховика:';
-
-  Edit1.Left:=257;
-  Edit1.Top:=187;
-  Edit1.Width:=121;
-  Edit1.Text:='';
-
-  Edit2.Left:=257;
-  Edit2.Top:=220;
-  Edit2.Width:=121;
-  Edit2.Text:='';
-
-  StartButton.Left:=550;
-  StartButton.Top:=256;
-
+  ObjParametrs.ButtonParametrs(StartButton,256,550);
   StartButton.OnClick:=Start4ButtonClick;
 end;
 
@@ -475,43 +414,17 @@ begin
   Form1.Height:=267;
   Form1.Width:=510;
 
-  Label1.Left:=30;
-  Label1.Top:=16;
-  Label1.Font.Size:=12;
-  Label1.Caption:='Масса маховика='+FloatToStr(MMAX)+' кг';
+  ObjParametrs.LabelsParametrs(Label1,12,16,30,'Масса маховика='+FloatToStr(MMAX)+' кг');
+  ObjParametrs.LabelsParametrs(Label2,12,41,30,'Момент инерции маховика='+FloatToStr(JMAX)+' кг*м2');
+  ObjParametrs.LabelsParametrs(Label3,Label3.Font.Size,66,30,'Ширина маховика='+FloatToStr(B)+' м');
+  ObjParametrs.LabelsParametrs(Label4,12,91,30,'Значение разности t1(k+1)-t1(k)='+FloatToStr(T1[iK+1]-T1[iK])+' K='+FloatToStr(iK));
+  ObjParametrs.LabelsParametrs(Label5,Label5.Font.Size,116,30,'Диаметр вала='+FloatToStr(DW)+' м');
+  ObjParametrs.LabelsParametrs(Label6,Label6.Font.Size,141,30,'В случае двух маховиков, диаметр вала='+FloatToStr(DW1)+' м');
+  ObjParametrs.LabelsParametrs(Label7,Label7.Font.Size,166,30,'Кинетическая энергия маховика='+FloatToStr(TMAX)+' кДж');
 
-  Label2.Left:=30;
-  Label2.Top:=41;
-  Label2.Font.Size:=12;
-  Label2.Caption:='Момент инерции маховика='+FloatToStr(JMAX)+' кг*м2';
-
-  Label3.Left:=30;
-  Label3.Top:=66;
-  Label3.Caption:='Ширина маховика='+FloatToStr(B)+' м';
-
-  Label4.Left:=30;
-  Label4.Top:=91;
-  Label4.Caption:='Значение разности t1(k+1)-t1(k)='+FloatToStr(T1[iK+1]-T1[iK])+' K='+FloatToStr(iK);
-  Label4.Font.Size:=12;
-
-  Label5.Left:=30;
-  Label5.Top:=116;
-  Label5.Caption:='Диаметр вала='+FloatToStr(DW)+' м';
-
-  Label6.Left:=30;
-  Label6.Top:=141;
-  Label6.Caption:='В случае двух маховиков, диаметр вала='+FloatToStr(DW1)+' м';
-
-  Label7.Left:=30;
-  Label7.Top:=166;
-  Label7.Caption:='Кинетическая энергия маховика='+FloatToStr(TMAX)+' кДж';
-
-  StartButton.Left:=375;
-  StartButton.Top:=197;
-  BackButton.Left:=8;
-  BackButton.Top:=194;
-
+  ObjParametrs.ButtonParametrs(StartButton,197,375);
   StartButton.OnClick:=Start5ButtonClick;
+  ObjParametrs.ButtonParametrs(BackButton,194,8);
 end;
 
 procedure TPowerFlywheel.Start5ButtonClick(Sender: TObject);
@@ -523,51 +436,16 @@ begin
   Label8.Visible:=True;
   Label9.Visible:=True;
 
-  Label1.Left:=270;
-  Label1.Top:=8;
-  Label1.Font.Size:=14;
-  Label1.Caption:='Промежуточные расчетные величины';
-
-  Label2.Left:=345;
-  Label2.Top:=71;
-  Label2.Font.Size:=14;
-  Label2.Caption:='Положения кривошипа';
-
-  Label3.Left:=112;
-  Label3.Top:=290;
-  Label3.Font.Size:=12;
-  Label3.Caption:='Mпр - приведенный момент';
-
-  Label4.Left:=112;
-  Label4.Top:=310;
-  Label4.Font.Size:=12;
-  Label4.Caption:='A - работа внешних сил';
-
-  Label5.Left:=112;
-  Label5.Top:=330;
-  Label5.Font.Size:=12;
-  Label5.Caption:='T1,T2 - кинетические энергии';
-
-  Label6.Left:=112;
-  Label6.Top:=350;
-  Label6.Font.Size:=12;
-  Label6.Caption:='Vs - линейные скорости точки S';
-
-  Label7.Left:=112;
-  Label7.Top:=370;
-  Label7.Font.Size:=12;
-  Label7.Caption:='W2 - угловые скорости';
-
-  Label8.Left:=8;
-  Label8.Top:=420;
-  Label8.Font.Size:=14;
-  Label8.Caption:='Величина кинетической энергии T0 в начале цикла='+FloatToStr(T10)+' кДж';
-
-  Label9.Left:=352;
-  Label9.Top:=470;
-  Label9.Font.Size:=14;
-  Label9.Caption:='Исходные данные';
-
+  ObjParametrs.LabelsParametrs(Label1,14,8,270,'Промежуточные расчетные величины');
+  ObjParametrs.LabelsParametrs(Label2,14,71,345,'Положения кривошипа');
+  ObjParametrs.LabelsParametrs(Label3,12,290,112,'Mпр - приведенный момент');
+  ObjParametrs.LabelsParametrs(Label4,12,310,112,'A - работа внешних сил');
+  ObjParametrs.LabelsParametrs(Label5,12,330,112,'T1,T2 - кинетические энергии');
+  ObjParametrs.LabelsParametrs(Label6,12,350,112,'Vs - линейные скорости точки S');
+  ObjParametrs.LabelsParametrs(Label7,12,370,112,'W2 - угловые скорости');
+  ObjParametrs.LabelsParametrs(Label8,14,420,8,'Величина кинетической энергии T0 в начале цикла='+FloatToStr(T10)+' кДж');
+  ObjParametrs.LabelsParametrs(Label9,14,470,352,'Исходные данные');
+  ObjParametrs.ButtonParametrs(BackButton,550,8);
 
   StringGrid1.Left:=112;
   StringGrid1.Top:=96;
@@ -596,7 +474,6 @@ begin
   for i:=1 to 9 do StringGrid1.Cells[i,6]:=FloatToStr(W2[i]);
   StringGrid1.Visible:=True;
 
-
   StringGrid2.Left:=8;
   StringGrid2.Top:=490;
   StringGrid2.Height:=53;
@@ -606,7 +483,6 @@ begin
   StringGrid2.ColCount:=13;
   StringGrid2.RowCount:=2;
   StringGrid2.ColWidths[0]:=StringGrid2.ColWidths[1];
-
   StringGrid2.Cells[0,0]:='R';
   StringGrid2.Cells[0,1]:=FloatToStr(R);
   StringGrid2.Cells[1,0]:='L';
@@ -634,17 +510,12 @@ begin
   StringGrid2.Cells[12,0]:='K';
   StringGrid2.Cells[12,1]:=FloatToStr(K);
   StringGrid2.Visible:=True;
-
-  BackButton.Left:=8;
-  BackButton.Top:=550;
 end;
-
-
 
 procedure TPowerFlywheel.BackButtonClick(Sender: TObject);
 begin
   destroy;
-  fFileCreate := TNilCreate.create(Form1);
+  fFileCreate := TCreateMainForm.create(Form1);
 end;
 
 procedure TPowerFlywheel.Edit1Change(Sender: TObject); //if Edit='', don't continue

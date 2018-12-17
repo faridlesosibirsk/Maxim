@@ -82,34 +82,49 @@
 			<DelphiCompile Include="$(MainSource)">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="UMainForm.pas">
-				<Form>Form1</Form>
-				<FormType>dfm</FormType>
-			</DCCReference>
+			<DCCReference Include="UParametrsObjects.pas"/>
+			<DCCReference Include="UCreateObjects.pas"/>
+			<DCCReference Include="UMainForm.pas"/>
 			<DCCReference Include="UInterface.pas"/>
 			<DCCReference Include="UCreateMainForm.pas"/>
-			<DCCReference Include="PowerFlywheel\UPowerFlywheel.pas"/>
 			<DCCReference Include="PowerFlywheel\ULessOffset.pas"/>
 			<DCCReference Include="PowerFlywheel\ULargerOffset.pas"/>
+			<DCCReference Include="PowerFlywheel\UPowerFlywheel.pas"/>
 			<DCCReference Include="FrameSaws\UFrameSaws.pas"/>
-			<DCCReference Include="PowerFlywheel\UCreateObjects.pas"/>
-			<DCCReference Include="PowerFlywheel\UParametrsObjects.pas"/>
 			<None Include="ModelSupport_Project1\default.txaPackage"/>
 			<None Include="ModelSupport_Project1\default.txvpck"/>
 			<None Include="ModelSupport_Project1\Project1\default.txvpck"/>
 			<None Include="ModelSupport_Project1\Project1\default.txaPackage"/>
-			<None Include="ModelSupport_Project1\UPowerFlywheel\default.txvpck"/>
-			<None Include="ModelSupport_Project1\UPowerFlywheel\default.txaPackage"/>
-			<None Include="ModelSupport_Project1\ULessOffset\default.txvpck"/>
-			<None Include="ModelSupport_Project1\ULargerOffset\default.txvpck"/>
-			<None Include="ModelSupport_Project1\UCreateMainForm\default.txvpck"/>
-			<None Include="ModelSupport_Project1\UInterface\default.txvpck"/>
-			<None Include="ModelSupport_Project1\UMainForm\default.txvpck"/>
-			<None Include="ModelSupport_Project1\UInterface\default.txaPackage"/>
-			<None Include="ModelSupport_Project1\UCreateMainForm\default.txaPackage"/>
-			<None Include="ModelSupport_Project1\ULessOffset\default.txaPackage"/>
 			<None Include="ModelSupport_Project1\UObjectsPowerFlywhell\default.txvpck"/>
 			<None Include="ModelSupport_Project1\UObjectsPowerFlywhell\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UCreateObjects\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UInterface\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UMainForm\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UFrameSaws\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UPowerFlywheel\default.txvpck"/>
+			<None Include="ModelSupport_Project1\ULessOffset\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UParametrsObjects\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UCreateMainForm\default.txvpck"/>
+			<None Include="ModelSupport_Project1\ULargerOffset\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UFrameSaws\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\ULargerOffset\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UInterface\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UMainForm\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UPowerFlywheel\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UCreateMainForm\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UParametrsObjects\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\ULessOffset\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UInterface\default_diagram.tvsconfig"/>
+			<None Include="ModelSupport_Project1\UCreateMainForm\default_diagram.tvsconfig"/>
+			<None Include="ModelSupport_Project1\ULargerOffset\default_diagram.tvsconfig"/>
+			<None Include="ModelSupport_Project1\UPowerFlywheel\default_diagram.tvsconfig"/>
+			<None Include="ModelSupport_Project1\UMainForm\default_diagram.tvsconfig"/>
+			<None Include="ModelSupport_Project1\UParametrsObjects\default_diagram.tvsconfig"/>
+			<None Include="ModelSupport_Project1\ULessOffset\default_diagram.tvsconfig"/>
+			<None Include="ModelSupport_Project1\UFrameSaws\default_diagram.tvsconfig"/>
+			<None Include="PowerFlywheel\ABC.ini"/>
+			<None Include="PowerFlywheel\__history"/>
+			<None Include="FrameSaws\__history"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

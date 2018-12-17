@@ -10,9 +10,10 @@ uses
 
 type
 
-  TNilCreate = class(TInterfacedObject, TInterfaceMenuCreate)
+  TCreateMainForm = class(TInterfacedObject, TInterfaceMenuCreate)
   private
     PowerFlywheelButton, FrameSawsButton: TButton;
+    /// <link>aggregation</link>
     fFileCreate: TInterfaceMenuCreate;
   public
     procedure PowerFlywheelButtonClick(Sender: TObject);
@@ -23,11 +24,11 @@ type
 
 implementation
 
-{ TNilCreate }
+{ TCreateMainForm }
 
 uses UMainForm;
 
-constructor TNilCreate.create(AOwner: TForm);
+constructor TCreateMainForm.create(AOwner: TForm);
 var
   Ini: TIniFile;
 begin
@@ -64,7 +65,7 @@ begin
   FrameSawsButton.OnClick:=FrameSawsButtonClick;
 end;
 
-procedure TNilCreate.destroy;
+procedure TCreateMainForm.destroy;
 begin
     PowerFlywheelButton.Free;
     FrameSawsButton.Free;
@@ -72,7 +73,7 @@ end;
 
 
 
-procedure TNilCreate.PowerFlywheelButtonClick(Sender: TObject);
+procedure TCreateMainForm.PowerFlywheelButtonClick(Sender: TObject);
 var
   Ini: TIniFile;
 begin
@@ -89,7 +90,7 @@ begin
 end;
 
 
-procedure TNilCreate.FrameSawsButtonClick(Sender: TObject);
+procedure TCreateMainForm.FrameSawsButtonClick(Sender: TObject);
 var
   Ini: TIniFile;
 begin
