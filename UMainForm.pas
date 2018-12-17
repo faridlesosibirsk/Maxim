@@ -11,6 +11,7 @@ uses
 type
   TForm1 = class(TForm)
   private
+    /// <link>aggregation</link>
     fFileCreate: TInterfaceMenuCreate;
   published
     constructor create(AOwner: TComponent); Override;
@@ -27,7 +28,7 @@ implementation
 constructor TForm1.create(AOwner: TComponent);
 begin
   inherited;
-  fFileCreate := TNilCreate.create(self); //Создаем основные объекты формы
+  fFileCreate := TCreateMainForm.create(self); //Создаем основные объекты формы
 end;
 
 end.

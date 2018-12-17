@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet version="1.0">
+  <view uin="xnby1a4unst_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="delphi:e_class:src:Project1:Project1.@unitclass">
+      <property name="$shortcutReference" value="true" />
+    </reference>
+    <reference referencedUin="design:view:::992iazjp6wi_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="340,360,120,121" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_class:src:Project1:UCreateMainForm.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:UCreateMainForm.TCreateMainForm" />
+    </reference>
+    <reference referencedUin="design:view:::ux9fd9ivsgr_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="140,80,100,121" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_class:src:Project1:UInterface.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:UInterface.TInterfaceMenuCreate" />
+    </reference>
+    <reference referencedUin="design:view:::pa95e8mb72l_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="360,80,100,121" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_class:src:Project1:UMainForm.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:UMainForm.TForm1" />
+    </reference>
+    <reference referencedUin="design:view:::w3uhwpm2mij_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="573,417,100,121" />
+      <reference referencedUin="delphi:e_class:src:Project1:UFrameSaws.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:UFrameSaws.TFrameSaws" />
+    </reference>
+    <reference referencedUin="design:view:::rme25igw1os_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="130,479,127,121" />
+      <reference referencedUin="delphi:e_class:src:Project1:UParametrsObjects.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:UParametrsObjects.TParametrsObjects" />
+    </reference>
+    <reference referencedUin="design:view:::dm9h7prshum_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="121,305,111,121" />
+      <reference referencedUin="delphi:e_class:src:Project1:UPowerFlywheel.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:UPowerFlywheel.TPowerFlywheel" />
+    </reference>
+    <reference referencedUin="design:view:::916d6s1r3pk_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="426,536,100,121" />
+      <reference referencedUin="delphi:e_class:src:Project1:ULessOffset.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:ULessOffset.TLessOffset" />
+    </reference>
+    <reference referencedUin="design:view:::tvarf36f6tq_v">
+      <property name="$hidden" value="True" />
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="620,200,100,121" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_class:src:Project1:ULargerOffset.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:Project1:ULargerOffset.TLargerOffset" />
+    </reference>
+  </view>
+</nodeSet>
