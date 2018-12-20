@@ -7,20 +7,15 @@ uses
   Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls,
   ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs, IniFiles,
   Generics.Collections, Math, Vcl.Grids, WinProcs,
-  UInterface,UParametrsObjects,UCreateObjects;
+  UObjects;
 
 type
-
-  TPowerFlywheel = class(TInterfacedObject, TInterfaceMenuCreate)
+  TPowerFlywheel = class(TObjects)
   private
-    /// <link>aggregation</link>
-    fFileCreate: TInterfaceMenuCreate;
+    Edit:TList<TEdit>;
+    Edit_:TEdit;
     /// <link>aggregation</link>
     Offset: TPowerFlywheel;
-    /// <link>aggregation</link>
-    ObjCreate: TCreateObjects;
-    /// <link>aggregation</link>
-    ObjParametrs: TParametrsObjects;
     LabelOriginal,
     Label1, Label2, Label3, Label4, Label5,
     Label6, Label7, Label8, Label9, Label10,
@@ -34,7 +29,7 @@ type
     StringGrid1, StringGrid2: TStringGrid;
   public
     constructor create(AOwner: TForm);
-    procedure destroy;
+    procedure destroy; override;
     procedure Start1ButtonClick(Sender:TObject);
     procedure Start2ButtonClick(Sender:TObject);
     procedure Start3ButtonClick(Sender: TObject);
@@ -74,49 +69,52 @@ uses UMainForm, UCreateMainForm, ULessOffset, ULargerOffset;
 
 
 constructor TPowerFlywheel.create(AOwner: TForm);
+var
+  Edit_:TEdit;
 begin
+  Edit:=TList<TEdit>.create;
 
-  ObjCreate.LabelsCreate(AOwner, LabelOriginal, 14, 8, 8, 'Введите исходные данные');
-  ObjCreate.LabelsCreate(AOwner, Label1, 12, 46, 187, 'Длина кривошипа (м)');
-  ObjCreate.LabelsCreate(AOwner, Label2, 12, 79, 215, 'Длина шатуна (м)');
-  ObjCreate.LabelsCreate(AOwner, Label3, 12, 112, 52, 'Расстояние до центра тяжести шатуна (м)');
-  ObjCreate.LabelsCreate(AOwner, Label4, 12, 145, 129, 'Обороты кривошипа (мин^-1)');
-  ObjCreate.LabelsCreate(AOwner, Label5, 12, 178, 211, 'Cила резания (кН)');
-  ObjCreate.LabelsCreate(AOwner, Label6, 12, 211, 24, 'Расстояние до центра тяжести кривошипа (м)');
-  ObjCreate.LabelsCreate(AOwner, Label7, 12, 244, 132, '№ точки начала силы резания');
-  ObjCreate.LabelsCreate(AOwner, Label8, 12, 277, 9, 'Масса неуравновешенной части кривошипа (кг)');
-  ObjCreate.LabelsCreate(AOwner, Label9, 12, 310, 214, 'Масса шатуна (кг)');
-  ObjCreate.LabelsCreate(AOwner, Label10, 12, 343, 158, 'Масса пильной рамки (кг)');
-  ObjCreate.LabelsCreate(AOwner, Label11, 12, 376, 103, 'Момент инерции шатуна (кг*м^2)');
-  ObjCreate.LabelsCreate(AOwner, Label12, 12, 409, 84, 'Коэффициент неравномерности хода');
-  ObjCreate.LabelsCreate(AOwner, Label13, 12, 442, 30, 'Смещение хода пильной рамки (возможен 0)');
+  fFileCreate.LabelsCreate(AOwner, LabelOriginal, 14, 8, 8, 'Введите исходные данные');
+  fFileCreate.LabelsCreate(AOwner, Label1, 12, 46, 187, 'Длина кривошипа (м)');
+  fFileCreate.LabelsCreate(AOwner, Label2, 12, 79, 215, 'Длина шатуна (м)');
+  fFileCreate.LabelsCreate(AOwner, Label3, 12, 112, 52, 'Расстояние до центра тяжести шатуна (м)');
+  fFileCreate.LabelsCreate(AOwner, Label4, 12, 145, 129, 'Обороты кривошипа (мин^-1)');
+  fFileCreate.LabelsCreate(AOwner, Label5, 12, 178, 211, 'Cила резания (кН)');
+  fFileCreate.LabelsCreate(AOwner, Label6, 12, 211, 24, 'Расстояние до центра тяжести кривошипа (м)');
+  fFileCreate.LabelsCreate(AOwner, Label7, 12, 244, 132, '№ точки начала силы резания');
+  fFileCreate.LabelsCreate(AOwner, Label8, 12, 277, 9, 'Масса неуравновешенной части кривошипа (кг)');
+  fFileCreate.LabelsCreate(AOwner, Label9, 12, 310, 214, 'Масса шатуна (кг)');
+  fFileCreate.LabelsCreate(AOwner, Label10, 12, 343, 158, 'Масса пильной рамки (кг)');
+  fFileCreate.LabelsCreate(AOwner, Label11, 12, 376, 103, 'Момент инерции шатуна (кг*м^2)');
+  fFileCreate.LabelsCreate(AOwner, Label12, 12, 409, 84, 'Коэффициент неравномерности хода');
+  fFileCreate.LabelsCreate(AOwner, Label13, 12, 442, 30, 'Смещение хода пильной рамки (возможен 0)');
 
-  ObjCreate.EditCreate(AOwner, Edit1, 43);
-  ObjCreate.EditCreate(AOwner, Edit2, 76);
-  ObjCreate.EditCreate(AOwner, Edit3, 109);
-  ObjCreate.EditCreate(AOwner, Edit4, 142);
-  ObjCreate.EditCreate(AOwner, Edit5, 175);
-  ObjCreate.EditCreate(AOwner, Edit6, 208);
-  ObjCreate.EditCreate(AOwner, Edit7, 241);
-  ObjCreate.EditCreate(AOwner, Edit8, 274);
-  ObjCreate.EditCreate(AOwner, Edit9, 307);
-  ObjCreate.EditCreate(AOwner, Edit10, 340);
-  ObjCreate.EditCreate(AOwner, Edit11, 373);
-  ObjCreate.EditCreate(AOwner, Edit12, 406);
-  ObjCreate.EditCreate(AOwner, Edit13, 439);
+  fFileCreate.EditCreate(AOwner, Edit1, 43);
+  fFileCreate.EditCreate(AOwner, Edit2, 76);
+  fFileCreate.EditCreate(AOwner, Edit3, 109);
+  fFileCreate.EditCreate(AOwner, Edit4, 142);
+  fFileCreate.EditCreate(AOwner, Edit5, 175);
+  fFileCreate.EditCreate(AOwner, Edit6, 208);
+  fFileCreate.EditCreate(AOwner, Edit7, 241);
+  fFileCreate.EditCreate(AOwner, Edit8, 274);
+  fFileCreate.EditCreate(AOwner, Edit9, 307);
+  fFileCreate.EditCreate(AOwner, Edit10, 340);
+  fFileCreate.EditCreate(AOwner, Edit11, 373);
+  fFileCreate.EditCreate(AOwner, Edit12, 406);
+  fFileCreate.EditCreate(AOwner, Edit13, 439);
   for i:=Form1.ComponentCount-1 downto 0 do begin
   if (Form1.Components[i] is TEdit) then begin
        (Form1.Components[i] as TEdit).OnChange:=Edit1Change;
        (Form1.Components[i] as TEdit).OnKeyPress:=Edit1KeyPress;
       end;
   end;
-  ObjCreate.ButtonsCreate(AOwner, StartButton, 478, 325, 121, 'Выполнить', False);
+  fFileCreate.ButtonsCreate(AOwner, StartButton, 478, 325, 121, 'Выполнить', False);
   StartButton.OnClick:=Start1ButtonClick;
-  ObjCreate.ButtonsCreate(AOwner, BackButton, 478, 8, 177, 'К выбору программ', True);
+  fFileCreate.ButtonsCreate(AOwner, BackButton, 478, 8, 177, 'К выбору программ', True);
   BackButton.OnClick:=BackButtonClick;
 
-  ObjCreate.StringGridsCreate(AOwner, StringGrid1, 90, 8, 80, 725, 1, 1, 10, 3);
-  ObjCreate.StringGridsCreate(AOwner, StringGrid2, 270, 8, 51, 721, 1, 1, 10, 2);
+  fFileCreate.StringGridsCreate(AOwner, StringGrid1, 90, 8, 80, 725, 1, 1, 10, 3);
+  fFileCreate.StringGridsCreate(AOwner, StringGrid2, 270, 8, 51, 721, 1, 1, 10, 2);
 
 
 end;
@@ -192,24 +190,24 @@ begin
   Form1.Width:=465;
 
 
-  ObjParametrs.LabelsParametrs(Label1,12,8,60,'Необходимая мощность эл. двигателя, p =');
+  fFileCreate.LabelsParametrs(Label1,12,8,60,'Необходимая мощность эл. двигателя, p =');
   Label1.Caption:=Label1.Caption+' '+FloatToStr(FLOOR(PD))+' кВт';
-  ObjParametrs.LabelsParametrs(Label2,12,46,84,'Произведите подбор зл. двигателя, зная');
-  ObjParametrs.LabelsParametrs(Label3,12,66,84,'минимальную требуемую мощность:');
-  ObjParametrs.LabelsParametrs(Label4,12,97,58,'Обороты двигателя (об/мин):');
-  ObjParametrs.LabelsParametrs(Label5,12,130,22,'Момент инерции ротора (кг*м^2):');
-  ObjParametrs.LabelsParametrs(Label6,12,163,48,'Мощность эл. двигателя (кВт):');
-  ObjParametrs.LabelsParametrs(Label7,12,196,130,'Тип эл. двигателя:');
+  fFileCreate.LabelsParametrs(Label2,12,46,84,'Произведите подбор зл. двигателя, зная');
+  fFileCreate.LabelsParametrs(Label3,12,66,84,'минимальную требуемую мощность:');
+  fFileCreate.LabelsParametrs(Label4,12,97,58,'Обороты двигателя (об/мин):');
+  fFileCreate.LabelsParametrs(Label5,12,130,22,'Момент инерции ротора (кг*м^2):');
+  fFileCreate.LabelsParametrs(Label6,12,163,48,'Мощность эл. двигателя (кВт):');
+  fFileCreate.LabelsParametrs(Label7,12,196,130,'Тип эл. двигателя:');
 
-  ObjParametrs.EditParametrs(Edit1,94,260,92,8);
-  ObjParametrs.EditParametrs(Edit2,127,260,92,8);
-  ObjParametrs.EditParametrs(Edit3,160,260,92,8);
-  ObjParametrs.EditParametrs(Edit4,193,260,92,14);
+  fFileCreate.EditParametrs(Edit1,94,260,92,8);
+  fFileCreate.EditParametrs(Edit2,127,260,92,8);
+  fFileCreate.EditParametrs(Edit3,160,260,92,8);
+  fFileCreate.EditParametrs(Edit4,193,260,92,14);
   Edit4.OnKeyPress:=Edit2KeyPress;
 
-  ObjParametrs.ButtonParametrs(StartButton,230,330);
+  fFileCreate.ButtonParametrs(StartButton,230,330);
   StartButton.OnClick:=Start2ButtonClick;
-  ObjParametrs.ButtonParametrs(BackButton,230,8);
+  fFileCreate.ButtonParametrs(BackButton,230,8);
 end;
 
 procedure TPowerFlywheel.Start2ButtonClick(Sender: TObject);
@@ -236,27 +234,27 @@ begin
   Form1.Height:=550;
   Form1.Width:=770;
 
-  ObjParametrs.LabelsParametrs(Label1,14,16,300,'Результаты расчетов');
-  ObjParametrs.LabelsParametrs(Label2,12,68,340,'Положения кривошипа');
-  ObjParametrs.LabelsParametrs(Label3,12,248,340,'Положения кривошипа');
-  ObjParametrs.LabelsParametrs(Label4,12,168,12,'где: VCB - Скорость относительного движения точки C вследствие вращения шатуна относительно точки B.');
-  ObjParametrs.LabelsParametrs(Label5,12,188,49,'VC - Скорость точки C.');
-  ObjParametrs.LabelsParametrs(Label6,12,320,12,'где MF - Приведенные моменты сил резания.');
-  ObjParametrs.LabelsParametrs(Label7,12,364,184,'Скорость:');
+  fFileCreate.LabelsParametrs(Label1,14,16,300,'Результаты расчетов');
+  fFileCreate.LabelsParametrs(Label2,12,68,340,'Положения кривошипа');
+  fFileCreate.LabelsParametrs(Label3,12,248,340,'Положения кривошипа');
+  fFileCreate.LabelsParametrs(Label4,12,168,12,'где: VCB - Скорость относительного движения точки C вследствие вращения шатуна относительно точки B.');
+  fFileCreate.LabelsParametrs(Label5,12,188,49,'VC - Скорость точки C.');
+  fFileCreate.LabelsParametrs(Label6,12,320,12,'где MF - Приведенные моменты сил резания.');
+  fFileCreate.LabelsParametrs(Label7,12,364,184,'Скорость:');
   Label7.Caption:=Label7.Caption+' '+FloatToStr(VB)+' м/с';
-  ObjParametrs.LabelsParametrs(Label8,12,384,154,'Сила резания:');
+  fFileCreate.LabelsParametrs(Label8,12,384,154,'Сила резания:');
   Label8.Caption:=Label8.Caption+' '+FloatToStr(FR)+' кН';
-  ObjParametrs.LabelsParametrs(Label9,12,404,113,'Обороты двигателя:');
+  fFileCreate.LabelsParametrs(Label9,12,404,113,'Обороты двигателя:');
   Label9.Caption:=Label9.Caption+' '+FloatToStr(ND)+' об/мин';
-  ObjParametrs.LabelsParametrs(Label10,12,424,62,'Мощность и тип двигателя:');
+  fFileCreate.LabelsParametrs(Label10,12,424,62,'Мощность и тип двигателя:');
   Label10.Caption:=Label10.Caption+' '+FloatToStr(Z1)+' кВт/'+Z2;
-  ObjParametrs.LabelsParametrs(Label11,12,444,8,'Передаточное число ременной передачи:');
+  fFileCreate.LabelsParametrs(Label11,12,444,8,'Передаточное число ременной передачи:');
   Label11.Caption:=Label11.Caption+' '+FloatToStr(U);
 
-  ObjParametrs.ButtonParametrs(StartButton,477,640);
+  fFileCreate.ButtonParametrs(StartButton,477,640);
   StartButton.Caption:='Вперед';
   StartButton.OnClick:=Start3ButtonClick;
-  ObjParametrs.ButtonParametrs(BackButton,477,8);
+  fFileCreate.ButtonParametrs(BackButton,477,8);
 
   StringGrid1.Cells[0,0]:='скорости точек';
   StringGrid1.Cells[0,1]:='       VCB (м/с)=';
@@ -354,17 +352,17 @@ begin
   Form1.Height:=330;
   Form1.Width:=695;
 
-  ObjParametrs.LabelsParametrs(Label1,12,16,30,Label1.Caption);
-  ObjParametrs.LabelsParametrs(Label2,12,41,30,Label2.Caption);
-  ObjParametrs.LabelsParametrs(Label3,12,66,30,'Наибольший размах кинетической энергии T1='+FloatToStr(DT1)+' кДж');
-  ObjParametrs.LabelsParametrs(Label4,14,151,7,'Для определения геометрических размеров маховика введите следующие данные:');
-  ObjParametrs.LabelsParametrs(Label5,12,190,17,'Значение наружного диаметра (м):');
-  ObjParametrs.LabelsParametrs(Label6,12,223,24,'Коэффициент толщины маховика:');
+  fFileCreate.LabelsParametrs(Label1,12,16,30,Label1.Caption);
+  fFileCreate.LabelsParametrs(Label2,12,41,30,Label2.Caption);
+  fFileCreate.LabelsParametrs(Label3,12,66,30,'Наибольший размах кинетической энергии T1='+FloatToStr(DT1)+' кДж');
+  fFileCreate.LabelsParametrs(Label4,14,151,7,'Для определения геометрических размеров маховика введите следующие данные:');
+  fFileCreate.LabelsParametrs(Label5,12,190,17,'Значение наружного диаметра (м):');
+  fFileCreate.LabelsParametrs(Label6,12,223,24,'Коэффициент толщины маховика:');
 
-  ObjParametrs.EditParametrs(Edit1,187,257,121,Edit1.MaxLength);
-  ObjParametrs.EditParametrs(Edit2,220,257,121,Edit2.MaxLength);
+  fFileCreate.EditParametrs(Edit1,187,257,121,Edit1.MaxLength);
+  fFileCreate.EditParametrs(Edit2,220,257,121,Edit2.MaxLength);
 
-  ObjParametrs.ButtonParametrs(StartButton,256,550);
+  fFileCreate.ButtonParametrs(StartButton,256,550);
   StartButton.OnClick:=Start4ButtonClick;
 end;
 
@@ -414,17 +412,17 @@ begin
   Form1.Height:=267;
   Form1.Width:=510;
 
-  ObjParametrs.LabelsParametrs(Label1,12,16,30,'Масса маховика='+FloatToStr(MMAX)+' кг');
-  ObjParametrs.LabelsParametrs(Label2,12,41,30,'Момент инерции маховика='+FloatToStr(JMAX)+' кг*м2');
-  ObjParametrs.LabelsParametrs(Label3,Label3.Font.Size,66,30,'Ширина маховика='+FloatToStr(B)+' м');
-  ObjParametrs.LabelsParametrs(Label4,12,91,30,'Значение разности t1(k+1)-t1(k)='+FloatToStr(T1[iK+1]-T1[iK])+' K='+FloatToStr(iK));
-  ObjParametrs.LabelsParametrs(Label5,Label5.Font.Size,116,30,'Диаметр вала='+FloatToStr(DW)+' м');
-  ObjParametrs.LabelsParametrs(Label6,Label6.Font.Size,141,30,'В случае двух маховиков, диаметр вала='+FloatToStr(DW1)+' м');
-  ObjParametrs.LabelsParametrs(Label7,Label7.Font.Size,166,30,'Кинетическая энергия маховика='+FloatToStr(TMAX)+' кДж');
+  fFileCreate.LabelsParametrs(Label1,12,16,30,'Масса маховика='+FloatToStr(MMAX)+' кг');
+  fFileCreate.LabelsParametrs(Label2,12,41,30,'Момент инерции маховика='+FloatToStr(JMAX)+' кг*м2');
+  fFileCreate.LabelsParametrs(Label3,Label3.Font.Size,66,30,'Ширина маховика='+FloatToStr(B)+' м');
+  fFileCreate.LabelsParametrs(Label4,12,91,30,'Значение разности t1(k+1)-t1(k)='+FloatToStr(T1[iK+1]-T1[iK])+' K='+FloatToStr(iK));
+  fFileCreate.LabelsParametrs(Label5,Label5.Font.Size,116,30,'Диаметр вала='+FloatToStr(DW)+' м');
+  fFileCreate.LabelsParametrs(Label6,Label6.Font.Size,141,30,'В случае двух маховиков, диаметр вала='+FloatToStr(DW1)+' м');
+  fFileCreate.LabelsParametrs(Label7,Label7.Font.Size,166,30,'Кинетическая энергия маховика='+FloatToStr(TMAX)+' кДж');
 
-  ObjParametrs.ButtonParametrs(StartButton,197,375);
+  fFileCreate.ButtonParametrs(StartButton,197,375);
   StartButton.OnClick:=Start5ButtonClick;
-  ObjParametrs.ButtonParametrs(BackButton,194,8);
+  fFileCreate.ButtonParametrs(BackButton,194,8);
 end;
 
 procedure TPowerFlywheel.Start5ButtonClick(Sender: TObject);
@@ -436,16 +434,16 @@ begin
   Label8.Visible:=True;
   Label9.Visible:=True;
 
-  ObjParametrs.LabelsParametrs(Label1,14,8,270,'Промежуточные расчетные величины');
-  ObjParametrs.LabelsParametrs(Label2,14,71,345,'Положения кривошипа');
-  ObjParametrs.LabelsParametrs(Label3,12,290,112,'Mпр - приведенный момент');
-  ObjParametrs.LabelsParametrs(Label4,12,310,112,'A - работа внешних сил');
-  ObjParametrs.LabelsParametrs(Label5,12,330,112,'T1,T2 - кинетические энергии');
-  ObjParametrs.LabelsParametrs(Label6,12,350,112,'Vs - линейные скорости точки S');
-  ObjParametrs.LabelsParametrs(Label7,12,370,112,'W2 - угловые скорости');
-  ObjParametrs.LabelsParametrs(Label8,14,420,8,'Величина кинетической энергии T0 в начале цикла='+FloatToStr(T10)+' кДж');
-  ObjParametrs.LabelsParametrs(Label9,14,470,352,'Исходные данные');
-  ObjParametrs.ButtonParametrs(BackButton,550,8);
+  fFileCreate.LabelsParametrs(Label1,14,8,270,'Промежуточные расчетные величины');
+  fFileCreate.LabelsParametrs(Label2,14,71,345,'Положения кривошипа');
+  fFileCreate.LabelsParametrs(Label3,12,290,112,'Mпр - приведенный момент');
+  fFileCreate.LabelsParametrs(Label4,12,310,112,'A - работа внешних сил');
+  fFileCreate.LabelsParametrs(Label5,12,330,112,'T1,T2 - кинетические энергии');
+  fFileCreate.LabelsParametrs(Label6,12,350,112,'Vs - линейные скорости точки S');
+  fFileCreate.LabelsParametrs(Label7,12,370,112,'W2 - угловые скорости');
+  fFileCreate.LabelsParametrs(Label8,14,420,8,'Величина кинетической энергии T0 в начале цикла='+FloatToStr(T10)+' кДж');
+  fFileCreate.LabelsParametrs(Label9,14,470,352,'Исходные данные');
+  fFileCreate.ButtonParametrs(BackButton,550,8);
 
   StringGrid1.Left:=112;
   StringGrid1.Top:=96;

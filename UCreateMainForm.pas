@@ -6,20 +6,18 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls,
   ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs, IniFiles,
-  Generics.Collections, UInterface,UPowerFlywheel,UFrameSaws;
+  Generics.Collections, UObjects,UPowerFlywheel,UFrameSaws;
 
 type
 
-  TCreateMainForm = class(TInterfacedObject, TInterfaceMenuCreate)
+  TCreateMainForm = class(TObjects)
   private
     PowerFlywheelButton, FrameSawsButton: TButton;
-    /// <link>aggregation</link>
-    fFileCreate: TInterfaceMenuCreate;
   public
     procedure PowerFlywheelButtonClick(Sender: TObject);
     procedure FrameSawsButtonClick(Sender: TObject);
     constructor create(AOwner: TForm);
-    procedure destroy;
+    procedure destroy; override;
   end;
 
 implementation

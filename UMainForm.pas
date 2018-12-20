@@ -5,15 +5,12 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls, ActnMenus, Menus,
-  Data.DB, Data.Win.ADODB, Contnrs, Generics.Collections, UInterface, UCreateMainForm,
+  Data.DB, Data.Win.ADODB, Contnrs, Generics.Collections, UObjects, UCreateMainForm,
              Vcl.ExtCtrls;
 
 type
   TForm1 = class(TForm)
-  private
-    /// <link>aggregation</link>
-    fFileCreate: TInterfaceMenuCreate;
-  published
+    published
     constructor create(AOwner: TComponent); Override;
   end;
 

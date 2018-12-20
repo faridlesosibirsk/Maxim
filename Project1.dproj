@@ -82,10 +82,8 @@
 			<DelphiCompile Include="$(MainSource)">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="UParametrsObjects.pas"/>
-			<DCCReference Include="UCreateObjects.pas"/>
 			<DCCReference Include="UMainForm.pas"/>
-			<DCCReference Include="UInterface.pas"/>
+			<DCCReference Include="UObjects.pas"/>
 			<DCCReference Include="UCreateMainForm.pas"/>
 			<DCCReference Include="PowerFlywheel\ULessOffset.pas"/>
 			<DCCReference Include="PowerFlywheel\ULargerOffset.pas"/>
@@ -125,6 +123,8 @@
 			<None Include="PowerFlywheel\ABC.ini"/>
 			<None Include="PowerFlywheel\__history"/>
 			<None Include="FrameSaws\__history"/>
+			<None Include="ModelSupport_Project1\UObjects\default.txaPackage"/>
+			<None Include="ModelSupport_Project1\UObjects\default.txvpck"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

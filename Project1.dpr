@@ -2,10 +2,8 @@ program Project1;
 
 uses
   Vcl.Forms,
-  UParametrsObjects in 'UParametrsObjects.pas',
-  UCreateObjects in 'UCreateObjects.pas',
   UMainForm in 'UMainForm.pas',
-  UInterface in 'UInterface.pas',
+  UObjects in 'UObjects.pas',
   UCreateMainForm in 'UCreateMainForm.pas',
   ULessOffset in 'PowerFlywheel\ULessOffset.pas',
   ULargerOffset in 'PowerFlywheel\ULargerOffset.pas',
