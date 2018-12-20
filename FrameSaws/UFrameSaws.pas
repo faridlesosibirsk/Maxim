@@ -7,22 +7,15 @@ uses
   Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls,
   ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs, IniFiles,
   Generics.Collections, Math, Vcl.Grids, WinProcs,
-  UInterface,UParametrsObjects,UCreateObjects;
+  UObjects;
 
 type
-  TFrameSaws = class(TInterfacedObject, TInterfaceMenuCreate)
+  TFrameSaws = class(TObjects)
   private
-    /// <link>aggregation</link>
-    fFileCreate: TInterfaceMenuCreate;
-    ObjCreate: TCreateObjects;
-    //ObjParametrs: TParametrsObjects;
-
-    {Label1, Label2:TLabel;
-    Edit1, Edit2:TEdit;}
     StartButton, BackButton: TButton;
   public
     constructor create(AOwner: TForm);
-    procedure destroy;
+    procedure destroy; override;
     procedure BackButtonClick(Sender:TObject);
     procedure Start1ButtonClick(Sender:TObject);
   end;
@@ -40,9 +33,9 @@ uses UMainForm, UCreateMainForm;
 
 constructor TFrameSaws.create(AOwner: TForm);
 begin
-  ObjCreate.ButtonsCreate(AOwner, StartButton, 178, 330, 177, 'Выполнить', True);
+  fFileCreate.ButtonsCreate(AOwner, StartButton, 178, 330, 177, 'Выполнить', True);
   StartButton.OnClick:=Start1ButtonClick;
-  ObjCreate.ButtonsCreate(AOwner, BackButton, 178, 8, 177, 'К выбору программ', True);
+  fFileCreate.ButtonsCreate(AOwner, BackButton, 178, 8, 177, 'К выбору программ', True);
   BackButton.OnClick:=BackButtonClick;
 end;
 
