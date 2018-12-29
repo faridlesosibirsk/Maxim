@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls,
-  ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs,Vcl.Grids,
+  ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs,Vcl.Grids,Vcl.ExtCtrls,
   Generics.Collections;
 
 type
@@ -13,6 +13,9 @@ type
   public
 
     procedure destroy; virtual; abstract;
+
+    procedure LabeledEditCreate(AOwner: TForm; var LabeledEdit_: TLabeledEdit; Top,Left: integer;
+                Caption: string);
 
     procedure LabelsCreate(AOwner: TForm; var Label_: TLabel; FontSize,Top,Left: integer;
                 Caption: string);
@@ -22,9 +25,10 @@ type
     procedure StringGridsCreate(AOwner: TForm; var StringGrid_: TStringGrid; Top,
                 Left,Height,Width, FixedCols, FixedRows, ColCount, RowCount: integer);
 
-    procedure LabelsParametrs(var Label_: TLabel; FontSize,Top,Left: integer; Caption: string);
+    procedure LabelsParametrs(var Label__: TLabel; FontSize,Top,Left: integer; Caption: string);
     procedure EditParametrs(var Edit_: TEdit; Top,Left,Width,MaxLength: integer);
     procedure ButtonParametrs(var Button_:TButton; Top,Left:integer);
+    procedure CreateObjects(var OneLabels: TList<TLabel>; i:integer);
   end;
 
 var
@@ -50,6 +54,11 @@ begin
   Button_.Enabled:=Enabled;
 end;
 
+procedure TObjects.CreateObjects(var OneLabels: TList<TLabel>; i: integer);
+begin
+  //
+end;
+
 procedure TObjects.EditCreate(AOwner: TForm; var Edit_: TEdit;
   Top: integer);
 begin
@@ -65,6 +74,24 @@ begin
 end;
 
 
+
+procedure TObjects.LabeledEditCreate(AOwner: TForm; var LabeledEdit_: TLabeledEdit;
+  Top, Left: integer; Caption: string);
+begin
+  LabeledEdit_:=TLabeledEdit.Create(AOwner);
+  LabeledEdit_.Parent:=AOwner;
+  LabeledEdit_.Width:=92;
+  LabeledEdit_.Top:=Top;
+  LabeledEdit_.Left:=Left;
+  LabeledEdit_.Font.Size:=12;
+  LabeledEdit_.EditLabel.Font.Size:=12;
+  LabeledEdit_.Font.Name:='Times New Roman';
+  LabeledEdit_.EditLabel.Font.Name:='Times New Roman';
+  LabeledEdit_.EditLabel.Caption:=Caption;
+  LabeledEdit_.MaxLength:=8;
+  LabeledEdit_.LabelPosition:=lpLeft;
+
+end;
 
 procedure TObjects.LabelsCreate(AOwner: TForm; var Label_: TLabel;
   FontSize, Top, Left: integer; Caption: string);
@@ -97,6 +124,7 @@ begin
   StringGrid_.Font.Name:='Times New Roman';
   StringGrid_.Font.Size:=14;
   StringGrid_.Parent:= AOwner;
+  StringGrid_.DrawingStyle:=gdsGradient;
 end;
 
 procedure TObjects.ButtonParametrs(var Button_: TButton; Top,
@@ -106,14 +134,14 @@ begin
   Button_.Left:=Left;
 end;
 
-procedure TObjects.LabelsParametrs(var Label_: TLabel; FontSize,
+procedure TObjects.LabelsParametrs(var Label__: TLabel; FontSize,
   Top, Left: integer; Caption: string);
 begin
-  Label_.Font.Size:=FontSize;
-  Label_.Top:=Top;
-  Label_.Left:=Left;
-  Label_.Font.Name:='Times New Roman';
-  Label_.Caption:=Caption;
+  Label__.Font.Size:=FontSize;
+  Label__.Top:=Top;
+  Label__.Left:=Left;
+  //Label__.Font.Name:='Times New Roman';
+  Label__.Caption:=Caption;
 end;
 
 procedure TObjects.EditParametrs(var Edit_: TEdit; Top, Left, Width,
