@@ -2,7 +2,7 @@ unit ULessOffset;
 
 interface
 
-uses Forms, Math, UPowerFlywheel, UMainForm, UCreateMainForm;
+uses Forms, Math, UPowerFlywheel;
 
 type
 

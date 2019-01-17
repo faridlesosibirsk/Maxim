@@ -65,7 +65,7 @@
     </reference>
     <reference referencedUin="delphi:e_class:src:Project1:UCreateMainForm.TCreateMainForm">
       <property name="$shortcutReference" value="true" />
-      <property name="bounds" value="160,260,227,161" />
+      <property name="bounds" value="160,180,227,161" />
       <property name="location_set_by_user" value="True" />
       <reference referencedUin="delphi:e_field:src:Project1:UCreateMainForm.TCreateMainForm.PowerFlywheelButton" />
       <reference referencedUin="delphi:e_field:src:Project1:UCreateMainForm.TCreateMainForm.FrameSawsButton" />
@@ -74,14 +74,15 @@
       <reference referencedUin="delphi:e_method:src:Project1:UCreateMainForm.TCreateMainForm.create(Vcl.Forms.TForm)" />
       <reference referencedUin="delphi:e_method:src:Project1:UCreateMainForm.TCreateMainForm.destroy()" />
       <reference referencedUin="delphi:l_gnt:src:Project1:UCreateMainForm.TCreateMainForm:UObjects.TObjects">
-        <property name="sourceAnchor" value="369,260" />
-        <property name="targetAnchor" value="460,185" />
+        <property name="sourceAnchor" value="387,268" />
+        <property name="targetAnchor" value="460,268" />
         <property name="bendpoints" value="" />
       </reference>
+      <reference referencedUin="delphi:e_method:src:Project1:UCreateMainForm.TCreateMainForm.create(Forms.TForm)" />
     </reference>
     <reference referencedUin="delphi:e_class:src:Project1:UFrameSaws.TFrameSaws">
       <property name="$shortcutReference" value="true" />
-      <property name="bounds" value="660,260,171,161" />
+      <property name="bounds" value="620,520,171,159" />
       <property name="location_set_by_user" value="True" />
       <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.StartButton" />
       <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.BackButton" />
@@ -90,10 +91,20 @@
       <reference referencedUin="delphi:e_method:src:Project1:UFrameSaws.TFrameSaws.BackButtonClick(System.TObject)" />
       <reference referencedUin="delphi:e_method:src:Project1:UFrameSaws.TFrameSaws.Start1ButtonClick(System.TObject)" />
       <reference referencedUin="delphi:l_gnt:src:Project1:UFrameSaws.TFrameSaws:UObjects.TObjects">
-        <property name="sourceAnchor" value="660,261" />
-        <property name="targetAnchor" value="585,192" />
+        <property name="sourceAnchor" value="671,520" />
+        <property name="targetAnchor" value="587,299" />
         <property name="bendpoints" value="" />
       </reference>
+      <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.LabeledEdit1" />
+      <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.LabeledEdit2" />
+      <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.LabeledEdit3" />
+      <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.LabeledEdit4" />
+      <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.Label1" />
+      <reference referencedUin="delphi:e_field:src:Project1:UFrameSaws.TFrameSaws.StringGrid1" />
+      <reference referencedUin="delphi:e_method:src:Project1:UFrameSaws.TFrameSaws.StartButtonClick(System.TObject)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UFrameSaws.TFrameSaws.LabeledEdit1Change(System.TObject)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UFrameSaws.TFrameSaws.LabeledEdit1KeyPress(System.TObject,ref@System.Char)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UFrameSaws.TFrameSaws.create(Forms.TForm)" />
     </reference>
     <reference referencedUin="delphi:e_class:src:Project1:ULargerOffset.TLargerOffset">
       <property name="$shortcutReference" value="true" />
@@ -102,9 +113,10 @@
       <reference referencedUin="delphi:e_method:src:Project1:ULargerOffset.TLargerOffset.create(Vcl.Forms.TForm)" />
       <reference referencedUin="delphi:l_gnt:src:Project1:ULargerOffset.TLargerOffset:UPowerFlywheel.TPowerFlywheel">
         <property name="sourceAnchor" value="318,682" />
-        <property name="targetAnchor" value="420,682" />
+        <property name="targetAnchor" value="380,682" />
         <property name="bendpoints" value="" />
       </reference>
+      <reference referencedUin="delphi:e_method:src:Project1:ULargerOffset.TLargerOffset.create(Forms.TForm)" />
     </reference>
     <reference referencedUin="delphi:e_class:src:Project1:ULessOffset.TLessOffset">
       <property name="$shortcutReference" value="true" />
@@ -113,19 +125,20 @@
       <reference referencedUin="delphi:e_method:src:Project1:ULessOffset.TLessOffset.create(Vcl.Forms.TForm)" />
       <reference referencedUin="delphi:l_gnt:src:Project1:ULessOffset.TLessOffset:UPowerFlywheel.TPowerFlywheel">
         <property name="sourceAnchor" value="318,582" />
-        <property name="targetAnchor" value="420,582" />
+        <property name="targetAnchor" value="380,582" />
         <property name="bendpoints" value="" />
       </reference>
+      <reference referencedUin="delphi:e_method:src:Project1:ULessOffset.TLessOffset.create(Forms.TForm)" />
     </reference>
     <reference referencedUin="delphi:e_class:src:Project1:UMainForm.TForm1">
       <property name="$shortcutReference" value="true" />
-      <property name="bounds" value="120,60,130,98" />
+      <property name="bounds" value="200,400,130,98" />
       <property name="location_set_by_user" value="True" />
       <reference referencedUin="delphi:e_method:src:Project1:UMainForm.TForm1.create(Classes.TComponent)" />
     </reference>
     <reference referencedUin="delphi:e_class:src:Project1:UPowerFlywheel.TPowerFlywheel">
       <property name="$shortcutReference" value="true" />
-      <property name="bounds" value="420,260,209,716" />
+      <property name="bounds" value="380,520,209,221" />
       <property name="hideAttribute" value="False" />
       <property name="location_set_by_user" value="True" />
       <reference referencedUin="delphi:e_field:src:Project1:UPowerFlywheel.TPowerFlywheel.Offset" />
@@ -172,20 +185,21 @@
       <reference referencedUin="delphi:e_method:src:Project1:UPowerFlywheel.TPowerFlywheel.Edit1KeyPress(System.TObject,ref@System.Char)" />
       <reference referencedUin="delphi:e_method:src:Project1:UPowerFlywheel.TPowerFlywheel.Edit2KeyPress(System.TObject,ref@System.Char)" />
       <reference referencedUin="delphi:l_ast:src:Project1:UPowerFlywheel.TPowerFlywheel.Offset">
-        <property name="sourceAnchor" value="629,966" />
-        <property name="targetAnchor" value="621,976" />
-        <property name="bendpoints" value="664,966,664,1011,621,1011" />
+        <property name="sourceAnchor" value="589,733" />
+        <property name="targetAnchor" value="581,741" />
+        <property name="bendpoints" value="622,733,622,774,581,774" />
         <property name="bounds_setted_by_user" value="True" />
       </reference>
       <reference referencedUin="delphi:l_gnt:src:Project1:UPowerFlywheel.TPowerFlywheel:UObjects.TObjects">
-        <property name="sourceAnchor" value="522,260" />
-        <property name="targetAnchor" value="522,229" />
+        <property name="sourceAnchor" value="524,520" />
+        <property name="targetAnchor" value="524,299" />
         <property name="bendpoints" value="" />
       </reference>
+      <reference referencedUin="delphi:e_method:src:Project1:UPowerFlywheel.TPowerFlywheel.create(Forms.TForm)" />
     </reference>
     <reference referencedUin="delphi:e_class:src:Project1:UObjects.TObjects">
       <property name="$shortcutReference" value="true" />
-      <property name="bounds" value="460,40,125,189" />
+      <property name="bounds" value="460,20,149,279" />
       <property name="location_set_by_user" value="True" />
       <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.destroy()" />
       <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.LabelsCreate(Vcl.Forms.TForm,ref@StdCtrls.TLabel,System.Integer,System.Integer,System.Integer,System.string)" />
@@ -195,6 +209,20 @@
       <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.LabelsParametrs(ref@StdCtrls.TLabel,System.Integer,System.Integer,System.Integer,System.string)" />
       <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.EditParametrs(ref@StdCtrls.TEdit,System.Integer,System.Integer,System.Integer,System.Integer)" />
       <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.ButtonParametrs(ref@StdCtrls.TButton,System.Integer,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.LabeledEditCreate(Vcl.Forms.TForm,ref@Vcl.ExtCtrls.TLabeledEdit,System.Integer,System.Integer,System.string)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.LabeledEditCreate(Forms.TForm,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.LabeledEditParametrs(System.string,System.string,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.LabelsCreate(Forms.TForm,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.LabelsParametrs(System.string,System.string,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.EditCreate(Forms.TForm,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.EditParametrs(System.string,System.string,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.ButtonsCreate(Forms.TForm,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.ButtonsParametrs(System.string,System.string,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.StringGridsCreate(Forms.TForm,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.StringGridsParametrs(System.string,System.string,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.StringGridsCells(System.string,System.string,System.Integer)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.Edit1Change(System.TObject)" />
+      <reference referencedUin="delphi:e_method:src:Project1:UObjects.TObjects.Edit1KeyPress(System.TObject,ref@System.Char)" />
     </reference>
   </view>
 </nodeSet>

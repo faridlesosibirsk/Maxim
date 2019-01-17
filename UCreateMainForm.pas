@@ -3,19 +3,18 @@ unit UCreateMainForm;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls,
-  ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs, IniFiles,
-  Generics.Collections, UObjects,UPowerFlywheel,UFrameSaws;
+  SysUtils, Forms, StdCtrls, IniFiles,
+  UObjects,UPowerFlywheel,UFrameSaws;
 
 type
 
   TCreateMainForm = class(TObjects)
   private
-    PowerFlywheelButton, FrameSawsButton: TButton;
+    PowerFlywheelButton, FrameSawsButton, Bearings: TButton;
   public
     procedure PowerFlywheelButtonClick(Sender: TObject);
     procedure FrameSawsButtonClick(Sender: TObject);
+    procedure BearingsButtonClick(Sender: TObject);
     constructor create(AOwner: TForm);
     procedure destroy; override;
   end;
@@ -98,6 +97,22 @@ begin
     Form1.Height:=Ini.ReadInteger('FormFrameSaws', 'Height', 100);
     Form1.Width:=Ini.ReadInteger('FormFrameSaws', 'Width', 100);
     Form1.caption:=Ini.ReadString('FormFrameSaws', 'Caption', 'Form 1');
+  finally
+    Ini.Free;
+  end;
+  destroy;
+end;
+
+procedure TCreateMainForm.BearingsButtonClick(Sender: TObject);
+var
+  Ini: TIniFile;
+begin
+  fFileCreate:=TFrameSaws.create(Form1);
+  Ini := TIniFile.Create(ChangeFileExt(Application.ExeName, '.INI'));
+  try
+    Form1.Height:=Ini.ReadInteger('Bearings', 'Height', 100);
+    Form1.Width:=Ini.ReadInteger('Bearings', 'Width', 100);
+    Form1.caption:=Ini.ReadString('Bearings', 'Caption', 'Form 1');
   finally
     Ini.Free;
   end;
