@@ -11,21 +11,26 @@ type
 var
   Constant:TConstants;
 const
-  TNR='Times New Roman';
-  TNR12=12;
-  TNR14=14;
+  FontName='Times New Roman';
+  FontSize12=12;
+  FontSize14=14;
 
-  IniPath ='\IniFiles\';
+  PF = '\IniFiles\PowerFlywheel\';
+  FS = '\IniFiles\FrameSaws\';
+  BR = '\IniFiles\Bearings\';
 
-
-
-  PFLabels = 'PowerFlywheel\PowerFlywheelLabels.INI';
+  LabelsINI = 'Labels.INI';
+  EditINI = 'Edit.INI';
+  ButtonINI = 'Button.INI';
+  StringGridINI = 'StringGrid.INI';
+  LabeledEditINI = 'LabeledEdit.INI';
+  RadioGroupINI = 'RadioGroup.INI';
 
 implementation
 
 { TConstants }
 
-function TConstants.GetDirectory: string;
+function TConstants.GetDirectory: string; //путь к программе
 var sPath:string;
 begin
   GetDir(0,sPath);

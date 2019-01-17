@@ -2,7 +2,7 @@ unit ULargerOffset;
 
 interface
 
-uses Forms, Math, UPowerFlywheel, UMainForm;
+uses Forms, Math, UPowerFlywheel;
 
 type
   TLargerOffset = class(TPowerFlywheel)

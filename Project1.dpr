@@ -8,14 +8,11 @@ uses
   ULessOffset in 'PowerFlywheel\ULessOffset.pas',
   ULargerOffset in 'PowerFlywheel\ULargerOffset.pas',
   UPowerFlywheel in 'PowerFlywheel\UPowerFlywheel.pas',
-  UFrameSaws in 'FrameSaws\UFrameSaws.pas' {,
-  Vcl.Themes,
-  Vcl.Styles;
-
-{$R *.res},
+  UFrameSaws in 'FrameSaws\UFrameSaws.pas',
+  UConstants in 'UConstants.pas',
   Vcl.Themes,
   Vcl.Styles,
-  UConstants in 'UConstants.pas';
+  Bearings in 'Bearings\Bearings.pas';
 
 {$R *.res}
 

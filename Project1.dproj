@@ -91,13 +91,10 @@
 			<DCCReference Include="PowerFlywheel\ULargerOffset.pas"/>
 			<DCCReference Include="PowerFlywheel\UPowerFlywheel.pas"/>
 			<DCCReference Include="FrameSaws\UFrameSaws.pas">
-				<Form>,
-  Vcl.Themes,
-  Vcl.Styles;
-
-{$R *.res</Form>
+				<Form>$R *.res</Form>
 			</DCCReference>
 			<DCCReference Include="UConstants.pas"/>
+			<DCCReference Include="Bearings\Bearings.pas"/>
 			<None Include="ModelSupport_Project1\default.txaPackage"/>
 			<None Include="ModelSupport_Project1\default.txvpck"/>
 			<None Include="ModelSupport_Project1\Project1\default.txvpck"/>
@@ -134,6 +131,8 @@
 			<None Include="FrameSaws\__history"/>
 			<None Include="ModelSupport_Project1\UObjects\default.txaPackage"/>
 			<None Include="ModelSupport_Project1\UObjects\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UConstants\default.txvpck"/>
+			<None Include="ModelSupport_Project1\UConstants\default.txaPackage"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

@@ -3,19 +3,11 @@ unit UFrameSaws;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ToolWin, ActnMan, ActnCtrls,
-  ActnMenus, Menus, Data.DB, Data.Win.ADODB, Contnrs, IniFiles,
-  Generics.Collections, Math, Vcl.Grids, WinProcs,Vcl.ExtCtrls,
-  UObjects;
+  SysUtils, Forms, StdCtrls, Generics.Collections, Math, Vcl.Grids,Vcl.ExtCtrls,
+  UObjects, UConstants;
 
 type
   TFrameSaws = class(TObjects)
-  private
-    LabeledEdit1,LabeledEdit2,LabeledEdit3,LabeledEdit4:TLabeledEdit;
-    Label1:TLabel;
-    StartButton, BackButton: TButton;
-    StringGrid1:TStringGrid;
   public
     constructor create(AOwner: TForm);
     procedure destroy; override;
@@ -45,48 +37,48 @@ uses UMainForm, UCreateMainForm;
 constructor TFrameSaws.create(AOwner: TForm);
 var i:integer;
 begin
-  fFileCreate.LabeledEditCreate(AOwner, LabeledEdit1, 24, 272, 'Введите толщину полотна пилы (м)');
-  fFileCreate.LabeledEditCreate(AOwner, LabeledEdit2, 57, 272, 'Введите ширину полотна пилы (м)');
-  fFileCreate.LabeledEditCreate(AOwner, LabeledEdit3, 90, 272, 'Введите свободную длину полотна (м)');
-  fFileCreate.LabeledEditCreate(AOwner, LabeledEdit4, 123, 272, 'Введите продольную силу (кН)');
-  fFileCreate.LabelsCreate(AOwner, Label1, 12, 156, 135, 'Начальное смещение=0,01 м.');
+  LabeledEditList := TList<TLabeledEdit>.create;
+  fFileCreate.LabeledEditCreate(AOwner,4);
+  fFileCreate.LabeledEditParametrs(FS,'LabeledEdit',4);
 
+  LabelsList := TList<TLabel>.create;
+  fFileCreate.LabelsCreate(AOwner,1);
+  fFileCreate.LabelsParametrs(FS,'Label0_',1);
 
-  fFileCreate.ButtonsCreate(AOwner, StartButton, 194, 279, 177, 'Выполнить', False);
-  StartButton.OnClick:=StartButtonClick;
-  fFileCreate.ButtonsCreate(AOwner, BackButton, 194, 8, 177, 'К выбору программ', True);
-  BackButton.OnClick:=BackButtonClick;
+  ButtonList := TList<TButton>.create;
+  fFileCreate.ButtonsCreate(AOwner,2);
+  fFileCreate.ButtonsParametrs(FS,'Button0_',2);
+  ButtonList.Items[0].OnClick:=StartButtonClick;
+  ButtonList.Items[1].OnClick:=BackButtonClick;
+  ButtonList.Items[0].Enabled:=False;
 
+  StringGridList:=TList<TStringGrid>.create;
+  fFileCreate.StringGridsCreate(AOwner,1);
+  fFileCreate.StringGridsParametrs(FS,'StringGrid0_',1);
 
-  fFileCreate.StringGridsCreate(AOwner, StringGrid1, 40, 8, 79, 955, 1, 1, 7, 3);
-
-  for i:=Form1.ComponentCount-1 downto 0 do begin
-  if (Form1.Components[i] is TLabeledEdit) then begin
-       (Form1.Components[i] as TLabeledEdit).OnChange:=LabeledEdit1Change;
-       (Form1.Components[i] as TLabeledEdit).OnKeyPress:=LabeledEdit1KeyPress;
-      end;
+  for i:=0 to 3 do begin
+    LabeledEditList.Items[i].OnChange:=LabeledEdit1Change;
+    LabeledEditList.Items[i].OnKeyPress:=LabeledEdit1KeyPress;
   end;
+
 end;
 
 procedure TFrameSaws.destroy;
+var i:integer;
 begin
-  StartButton.Free;
-  BackButton.Free;
-  LabeledEdit1.Free;
-  LabeledEdit2.Free;
-  LabeledEdit3.Free;
-  LabeledEdit4.Free;
-  Label1.Free;
-  StringGrid1.Destroy;
+  for i:=0 to LabeledEditList.Count-1 do LabeledEditList.Items[i].Free;
+  for i:=0 to LabelsList.Count-1 do LabelsList.Items[i].Free;
+  for i:=0 to ButtonList.Count-1 do ButtonList.Items[i].Free;
+  for i:=0 to StringGridList.Count-1 do StringGridList.Items[i].Free;
 end;
 
 procedure TFrameSaws.StartButtonClick(Sender: TObject);
 var i:integer;
 begin
-  B:=StrToFloat(LabeledEdit1.Text);
-  H:=StrToFloat(LabeledEdit2.Text);
-  L:=StrToFloat(LabeledEdit3.Text);
-  N:=StrToFloat(LabeledEdit4.Text);
+  B:=StrToFloat(LabeledEditList.Items[0].Text);
+  H:=StrToFloat(LabeledEditList.Items[1].Text);
+  L:=StrToFloat(LabeledEditList.Items[2].Text);
+  N:=StrToFloat(LabeledEditList.Items[3].Text);
   try
     E1:=0.01;
     EY:=2E+08;
@@ -100,10 +92,10 @@ begin
       P:=R*(1+Power((1-Q/Power((R/2),2)),0.51))/2;
       A1[1,i]:=P*E1;
 
-      StringGrid1.Cells[i,0]:=FloatToStr(E1)+' м.';
-      StringGrid1.Cells[i,1]:=FloatToStrF(A1[1,i],ffFixed,20,2);
-      StringGrid1.Cells[i,2]:=FloatToStrF(A1[2,i],ffFixed,20,2);
-      StringGrid1.ColWidths[i]:=135;
+      StringGridList.Items[0].Cells[i,0]:=FloatToStr(E1)+' м.';
+      StringGridList.Items[0].Cells[i,1]:=FloatToStrF(A1[1,i],ffFixed,20,2);
+      StringGridList.Items[0].Cells[i,2]:=FloatToStrF(A1[2,i],ffFixed,20,2);
+      StringGridList.Items[0].ColWidths[i]:=135;
 
       E1:=E1+0.01;
     end;
@@ -111,24 +103,23 @@ begin
     Application.MessageBox('Попытка деления на 0!','Ошибка');
     exit;
   end;
-  StartButton.Visible:=False;
-  LabeledEdit1.Visible:=False;
-  LabeledEdit2.Visible:=False;
-  LabeledEdit3.Visible:=False;
-  LabeledEdit4.Visible:=False;
-  StringGrid1.Visible:=True;
+  ButtonList.Items[0].Visible:=False;
+  for i:=0 to 3 do LabeledEditList.Items[i].Visible:=False;
+  StringGridList.Items[0].Visible:=True;
 
-  fFileCreate.LabelsParametrs(Label1,14,14,480,'Смещение');
-  fFileCreate.ButtonParametrs(BackButton,130,8);
+  fFileCreate.LabelsParametrs(FS,'Label1_',1);
+  LabelsList.Items[0].Font.Size:=14;
+
+  fFileCreate.ButtonsParametrs(FS,'Button1_',2);
 
   Form1.Height:=200;
   Form1.Width:=1000;
 
-  StringGrid1.ColWidths[0]:=135;
+  StringGridList.Items[0].ColWidths[0]:=135;
 
-  StringGrid1.Cells[0,0]:='  Наименование';
-  StringGrid1.Cells[0,1]:='   Крит. момент';
-  StringGrid1.Cells[0,2]:='        Крит. сила';
+  StringGridList.Items[0].Cells[0,0]:='  Наименование';
+  StringGridList.Items[0].Cells[0,1]:='   Крит. момент';
+  StringGridList.Items[0].Cells[0,2]:='        Крит. сила';
 
 end;
 
@@ -140,9 +131,9 @@ end;
 
 procedure TFrameSaws.LabeledEdit1Change(Sender: TObject); //if Edit='', don't continue
 begin
-  if (LabeledEdit1.Text='') or (LabeledEdit2.Text='')
-    or (LabeledEdit3.Text='') or (LabeledEdit4.Text='')
-    then StartButton.Enabled:=False else StartButton.Enabled:=True;
+  if (LabeledEditList.Items[0].Text='') or (LabeledEditList.Items[1].Text='')
+    or (LabeledEditList.Items[2].Text='') or (LabeledEditList.Items[3].Text='')
+    then ButtonList.Items[0].Enabled:=False else ButtonList.Items[0].Enabled:=True;
 end;
 
 procedure TFrameSaws.LabeledEdit1KeyPress(Sender: TObject; var Key: Char);
